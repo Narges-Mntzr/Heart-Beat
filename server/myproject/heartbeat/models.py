@@ -15,7 +15,7 @@ class Follow(models.Model):
 
 class HeartbeatLog(models.Model):
     user = models.ForeignKey(User, on_delete=models.CASCADE)
-    date = models.DateField(default=timezone.now)
+    date = models.DateTimeField(default=timezone.now)
 
     class Meta:
         unique_together = ('user', 'date')

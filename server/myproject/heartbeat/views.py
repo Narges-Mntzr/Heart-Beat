@@ -12,7 +12,7 @@ ALLOWED_USERNAME_PATTERN = re.compile(r'^[\w.@-]+$')
 
 @api_view(['POST'])
 def register_user(request):
-    username = request.data.get('username').strip().capitalize()
+    username = request.data.get('username')
     password = request.data.get('password')
 
     if not username or not password:
@@ -21,7 +21,7 @@ def register_user(request):
     if not ALLOWED_USERNAME_PATTERN.match(username):
         return Response({'error': 'Username contains invalid characters.'}, status=400)
 
-    if User.objects.filter(username=username).exists():
+    if User.objects.filter(username__iexact=username).exists():
         return Response({'error': 'Username already exists.'}, status=409)
 
     user = User.objects.create(username=username, password=password)
@@ -29,11 +29,11 @@ def register_user(request):
 
 @api_view(['POST'])
 def login_user(request):
-    username = request.data.get('username').strip().capitalize()
+    username = request.data.get('username')
     password = request.data.get('password')
 
     try:
-        user = User.objects.get(username=username)
+        user = User.objects.get(username__iexact=username)
         if user.password != password:
             return Response({'error': 'Invalid password.'}, status=401)
         return Response({'user_id': user.id}, status=200)
