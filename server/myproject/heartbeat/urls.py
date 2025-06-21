@@ -9,6 +9,7 @@ urlpatterns = [
     path('following/<int:user_id>/', views.list_following),
     path('followers/<int:user_id>/', views.list_followers),
     path('heartbeat/', views.send_heartbeat),
+    path('user/<int:user_id>/', views.get_user_info),
 ]
 
 

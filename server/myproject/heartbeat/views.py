@@ -44,18 +44,22 @@ def login_user(request):
 def follow_user(request):
     follower_id = request.data.get('follower_id')
     followed_username = request.data.get('followed_username')
-    
+
     try:
         follower = User.objects.get(id=follower_id)
-        print(1)
-        followed = User.objects.get(username=followed_username)
-        print(2)
-        Follow.objects.get_or_create(follower=follower, followed=followed)
+        followed = User.objects.get(username__iexact=followed_username)
+
+        existing = Follow.objects.filter(follower=follower, followed=followed).exists()
+        if existing:
+            return Response({'error': 'You are already following this user.'}, status=409)
+
+        Follow.objects.create(follower=follower, followed=followed)
         return Response({'status': 'followed'}, status=200)
+
     except User.DoesNotExist:
         logger.warning("User not found during follow operation.")
         return Response({'error': 'User not found'}, status=404)
-
+    
 @api_view(['GET'])
 def list_following(request, user_id):
     user = User.objects.get(id=user_id)
@@ -85,3 +89,14 @@ def send_heartbeat(request):
     today = date.today()
     HeartbeatLog.objects.get_or_create(user=user, date=today)
     return Response({'status': 'heartbeat recorded'}, status=200)
+
+@api_view(['GET'])
+def get_user_info(request, user_id):
+    try:
+        user = User.objects.get(id=user_id)
+        return Response({
+            'username': user.username,
+            'date_joined': user.date_joined.strftime('%Y-%m-%d')
+        })
+    except User.DoesNotExist:
+        return Response({'error': 'User not found'}, status=404)
