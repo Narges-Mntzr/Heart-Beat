@@ -1,5 +1,6 @@
 import React, { useEffect, useState, useRef } from "react";
 import {
+  Image,
   View,
   Text,
   Animated,
@@ -9,6 +10,7 @@ import {
   Modal,
   Button,
   ScrollView,
+  Share,
   RefreshControl,
 } from "react-native";
 import axios from "axios";
@@ -150,6 +152,16 @@ export default function HomeScreen({ userId, setUserId }) {
     ).start();
   }, []);
 
+  const handleShare = async () => {
+    try {
+      const message = config.SHARE_MESSAGE.replace('__USERNAME__', userInfo?.username || '');
+      await Share.share({ message });
+    } catch (error) {
+      alert("Something went wrong while sharing.");
+      console.log("Share error:", error);
+    }
+  };
+
   return (
     <ScrollView
       style={styles.container}
@@ -162,7 +174,16 @@ export default function HomeScreen({ userId, setUserId }) {
           <Text style={styles.title}>{userInfo?.username}</Text>
           <Text style={styles.subtitle}>Joined: {userInfo?.date_joined}</Text>
         </View>
-        <Button title="🚪 Log Out" onPress={handleLogout} color="#d9534f" />
+        <View>
+          <Button title="🚪 Log Out" onPress={handleLogout} color="#d9534f" />
+          <View style={{ marginTop: 10 }}>
+            <Button
+              title="📤 Share"
+              onPress={handleShare}
+              color="#5cb85c"
+            />
+          </View>
+        </View>
       </View>
 
       <View style={styles.statsRow}>
@@ -400,8 +421,12 @@ export default function HomeScreen({ userId, setUserId }) {
       >
         <View style={styles.modalOverlay}>
           <View style={styles.modalView}>
-            <Text style={styles.sectionTitle}>Message from {incomingMessageContent.sender_username}</Text>
-            <Text style={styles.subtitle}>Sent: {incomingMessageContent.sent_at}</Text>
+            <Text style={styles.sectionTitle}>
+              Message from {incomingMessageContent.sender_username}
+            </Text>
+            <Text style={styles.subtitle}>
+              Sent: {incomingMessageContent.sent_at}
+            </Text>
             <Text style={{ fontSize: 16, marginVertical: 20 }}>
               {incomingMessageContent.content}
             </Text>
