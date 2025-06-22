@@ -11,7 +11,7 @@ def get_time_ago_str(dt):
         time_ago_str = "Just now"
     elif seconds < 3600:
         minutes = int(seconds // 60)
-        time_ago_str = f"{minutes} minute{'s' if minutes != 1 else ''} ago"
+        time_ago_str = f"{minutes} min{'s' if minutes != 1 else ''} ago"
     elif seconds < 86400:  # کمتر از یک روز
         hours = int(seconds // 3600)
         time_ago_str = f"{hours} hour{'s' if hours != 1 else ''} ago"

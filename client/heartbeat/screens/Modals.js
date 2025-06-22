@@ -1,5 +1,6 @@
 import React from "react";
 import {
+  Image,
   View,
   Text,
   Modal,
@@ -8,14 +9,18 @@ import {
   Button,
   TextInput,
 } from "react-native";
-import { Ionicons } from "@expo/vector-icons";
+import { Ionicons, FontAwesome } from "@expo/vector-icons";
 import styles from "../styles/HomeScreenStyles";
 
 export default function Modals({ logic }) {
   return (
     <>
       {/* Following List */}
-      <Modal visible={logic.showFollowingList} animationType="slide" transparent>
+      <Modal
+        visible={logic.showFollowingList}
+        animationType="slide"
+        transparent
+      >
         <View style={styles.modalOverlay}>
           <View style={styles.modalViewLarge}>
             <Text style={styles.sectionTitle}>Following</Text>
@@ -25,44 +30,76 @@ export default function Modals({ logic }) {
               keyExtractor={(item) => item.username}
               renderItem={({ item }) => (
                 <View style={styles.userRow}>
-                  <View style={{ flexDirection: "row", alignItems: "center", gap: 4 }}>
-                    {item.unseen_message_id ? (
-                      <TouchableOpacity
-                        onPress={() => logic.handleSeeMessage(item.unseen_message_id)}
-                      >
-                        <Ionicons
-                          name="mail-unread-outline"
-                          size={24}
-                          color="#e67e22"
-                          style={{ marginRight: 4 }}
-                        />
-                      </TouchableOpacity>
-                    ) : (
-                      <View style={{ width: 24, height: 24, marginRight: 4 }} />
-                    )}
+                  <View
+                    style={{
+                      flexDirection: "row",
+                      alignItems: "center",
+                      gap: 4,
+                    }}
+                  >
+                    <TouchableOpacity
+                      onPress={() =>
+                        logic.handleSeeMessage(item.unseen_message_id)
+                      }
+                    >
+                      <Ionicons
+                        name="mail-unread-outline"
+                        size={24}
+                        color={item.unseen_message_id ? "#e67e22" : "#d6d3d0"}
+                        style={{ marginRight: 4 }}
+                      />
+                    </TouchableOpacity>
                     <Text style={styles.userName}>{item.username}</Text>
                   </View>
 
-                  <View style={{ flexDirection: "row", alignItems: "center", gap: 6 }}>
-                    {item.last_heartbeat && (
-                      <Text style={{ color: "red", fontSize: 12 }}>
-                        {item.last_heartbeat}
-                      </Text>
-                    )}
-                    <Text style={styles.heartStatus}>
-                      {item.heartbeat ? "❤️" : "🤍"}
-                    </Text>
+                  <View
+                    style={{
+                      flexDirection: "row",
+                      alignItems: "center",
+                      gap: 6,
+                    }}
+                  >
+                    <View style={{ minWidth: 70 }}>
+                      {item.last_heartbeat && (
+                        <Text style={{ color: "red", fontSize: 12 }}>
+                          {item.last_heartbeat}
+                        </Text>
+                      )}
+                      {/* <FontAwesome
+                        name={item.heartbeat ? "heart" : "heart-o"} // filled vs outlined
+                        size={24}
+                        color={item.heartbeat ? "red" : "#aaa"}
+                      /> */}
+                    </View>
+                    <View style={styles.heartWrapper}>
+                      <Image
+                        source={
+                          item.heartbeat
+                            ? require("../assets/heart_red.png")
+                            : require("../assets/heart_white.png")
+                        }
+                        style={styles.heartImage}
+                        resizeMode="contain"
+                      />
+                    </View>
                   </View>
                 </View>
               )}
             />
-            <Button title="Close" onPress={() => logic.setShowFollowingList(false)} />
+            <Button
+              title="Close"
+              onPress={() => logic.setShowFollowingList(false)}
+            />
           </View>
         </View>
       </Modal>
 
       {/* Followers List */}
-      <Modal visible={logic.showFollowersList} animationType="slide" transparent>
+      <Modal
+        visible={logic.showFollowersList}
+        animationType="slide"
+        transparent
+      >
         <View style={styles.modalOverlay}>
           <View style={styles.modalViewLarge}>
             <Text style={styles.sectionTitle}>Followers</Text>
@@ -88,7 +125,10 @@ export default function Modals({ logic }) {
                 </View>
               )}
             />
-            <Button title="Close" onPress={() => logic.setShowFollowersList(false)} />
+            <Button
+              title="Close"
+              onPress={() => logic.setShowFollowersList(false)}
+            />
           </View>
         </View>
       </Modal>
@@ -116,7 +156,9 @@ export default function Modals({ logic }) {
                 <Text>{user.username}</Text>
               </TouchableOpacity>
             ))}
-            {logic.error ? <Text style={styles.error}>{logic.error}</Text> : null}
+            {logic.error ? (
+              <Text style={styles.error}>{logic.error}</Text>
+            ) : null}
             <View style={styles.modalButtons}>
               <Button title="Follow" onPress={logic.handleFollow} />
               <Button
@@ -134,7 +176,11 @@ export default function Modals({ logic }) {
       </Modal>
 
       {/* Send Message */}
-      <Modal visible={logic.messageModalVisible} animationType="slide" transparent>
+      <Modal
+        visible={logic.messageModalVisible}
+        animationType="slide"
+        transparent
+      >
         <View style={styles.modalOverlay}>
           <View style={styles.modalView}>
             <Text style={styles.sectionTitle}>
@@ -168,7 +214,11 @@ export default function Modals({ logic }) {
       </Modal>
 
       {/* Seen Message */}
-      <Modal visible={logic.showIncomingMessageModal} animationType="slide" transparent>
+      <Modal
+        visible={logic.showIncomingMessageModal}
+        animationType="slide"
+        transparent
+      >
         <View style={styles.modalOverlay}>
           <View style={styles.modalView}>
             <Text style={styles.sectionTitle}>
@@ -180,7 +230,10 @@ export default function Modals({ logic }) {
             <Text style={{ fontSize: 16, marginVertical: 20 }}>
               {logic.incomingMessageContent.content}
             </Text>
-            <Button title="Close" onPress={() => logic.setShowIncomingMessageModal(false)} />
+            <Button
+              title="Close"
+              onPress={() => logic.setShowIncomingMessageModal(false)}
+            />
           </View>
         </View>
       </Modal>

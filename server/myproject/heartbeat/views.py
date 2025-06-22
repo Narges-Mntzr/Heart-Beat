@@ -23,6 +23,10 @@ def register_user(request):
     if not username or not password:
         return Response({"error": "Username and password are required."}, status=400)
 
+    if len(username) < 6:
+        return Response({"error": "Username must be at least 6 characters long."}, status=400)
+
+
     if not ALLOWED_USERNAME_PATTERN.match(username):
         return Response({"error": "Username contains invalid characters."}, status=400)
 

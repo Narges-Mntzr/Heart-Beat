@@ -4,12 +4,9 @@ import { StyleSheet } from "react-native";
 const styles = StyleSheet.create({
   addFriendCard: {
     alignItems: "left",
-    borderRadius: 10,
     flex: 1,
     justifyContent: "center",
-
     paddingHorizontal: 30,
-    paddingVertical: 12,
   },
   addFriendText: {
     color: "#0f9df5",
@@ -20,17 +17,28 @@ const styles = StyleSheet.create({
     flex: 1,
     padding: 16,
     paddingTop: 50,
+    backgroundColor: "#fff",
   },
   error: {
     color: "red",
-    fontSize: 18,
-    marginBottom: 10,
+    fontSize: 14,
+    marginBottom: 8,
   },
   headerRow: {
     alignItems: "center",
     flexDirection: "row",
     justifyContent: "space-between",
     margin: 20,
+  },
+  heartWrapper: {
+    width: 32,
+    height: 32,
+    justifyContent: "center",
+    alignItems: "center",
+  },
+  heartImage: {
+    width: 30,
+    height: 30,
   },
   heartEmoji: {
     color: "white",
@@ -52,13 +60,16 @@ const styles = StyleSheet.create({
   },
   heartStatus: {
     fontSize: 30,
+    lineHeight: 32,
+    textAlignVertical: "center",
   },
   input: {
+    borderWidth: 1,
     borderColor: "#ccc",
     borderRadius: 5,
-    borderWidth: 1,
-    marginBottom: 10,
-    padding: 8,
+    padding: 10,
+    marginBottom: 12,
+    color: "black"
   },
   modalButtons: {
     flexDirection: "row",
@@ -66,28 +77,28 @@ const styles = StyleSheet.create({
     marginTop: 15,
   },
   modalOverlay: {
-    alignItems: "center",
-    backgroundColor: "rgba(0,0,0,0.5)",
     flex: 1,
+    backgroundColor: "rgba(0,0,0,0.5)",
     justifyContent: "center",
+    alignItems: "center",
   },
   modalView: {
+    width: "90%",
     backgroundColor: "white",
     borderRadius: 10,
     padding: 20,
-    width: "80%",
   },
   modalViewLarge: {
+    width: "90%",
+    maxHeight: "75%",
     backgroundColor: "white",
     borderRadius: 10,
-    maxHeight: "70%",
     padding: 20,
-    width: "85%",
   },
   sectionTitle: {
-    fontSize: 18,
+    fontSize: 20,
     fontWeight: "600",
-    marginBottom: 10,
+    marginBottom: 12,
   },
   separator: {
     alignSelf: "stretch",
@@ -100,7 +111,7 @@ const styles = StyleSheet.create({
     alignItems: "left",
     borderRadius: 10,
     flex: 1,
-    paddingHorizontal: 16,
+    paddingHorizontal: 8,
     paddingVertical: 12,
   },
   statLabel: {
@@ -114,7 +125,8 @@ const styles = StyleSheet.create({
   statsRow: {
     flexDirection: "row",
     flexWrap: "wrap",
-    justifyContent: "space-between",
+    justifyContent: "space-around",
+    gap: 10,
     marginVertical: 20,
   },
   subtitle: {
@@ -122,28 +134,29 @@ const styles = StyleSheet.create({
     fontSize: 14,
   },
   suggestionItem: {
+    paddingVertical: 8,
+    paddingHorizontal: 12,
+    borderBottomColor: "#eee",
     borderBottomWidth: 1,
-    borderColor: "#eee",
-    paddingHorizontal: 10,
-    paddingVertical: 6,
   },
   title: {
     fontSize: 28,
     fontWeight: "bold",
+    marginBottom: 8,
   },
   userName: {
     fontSize: 16,
     fontWeight: "500",
   },
   userRow: {
+    flexDirection: "row",
+    justifyContent: "space-between",
     alignItems: "center",
     backgroundColor: "#f1f1f1",
     borderRadius: 8,
-    flexDirection: "row",
-    justifyContent: "space-between",
-    marginVertical: 2,
     paddingHorizontal: 12,
-    paddingVertical: 8,
+    paddingVertical: 10,
+    marginBottom: 6,
   },
   userItem: {
     display: "none",

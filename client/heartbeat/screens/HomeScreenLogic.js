@@ -23,7 +23,8 @@ export default function useHomeScreenLogic({ userId, setUserId }) {
   const [messageContent, setMessageContent] = useState("");
   const [messageError, setMessageError] = useState("");
   const [incomingMessageContent, setIncomingMessageContent] = useState("");
-  const [showIncomingMessageModal, setShowIncomingMessageModal] = useState(false);
+  const [showIncomingMessageModal, setShowIncomingMessageModal] =
+    useState(false);
 
   const fadeAnim = useRef(new Animated.Value(1)).current;
 
@@ -117,7 +118,10 @@ export default function useHomeScreenLogic({ userId, setUserId }) {
 
   const handleShare = async () => {
     try {
-      const message = config.SHARE_MESSAGE.replace('__USERNAME__', userInfo?.username || '');
+      const message = config.SHARE_MESSAGE.replace(
+        "__USERNAME__",
+        userInfo?.username || ""
+      );
       await Share.share({ message });
     } catch (error) {
       alert("Something went wrong while sharing.");
@@ -132,14 +136,23 @@ export default function useHomeScreenLogic({ userId, setUserId }) {
   useEffect(() => {
     Animated.loop(
       Animated.sequence([
-        Animated.timing(fadeAnim, { toValue: 0, duration: 500, useNativeDriver: true }),
-        Animated.timing(fadeAnim, { toValue: 1, duration: 500, useNativeDriver: true }),
+        Animated.timing(fadeAnim, {
+          toValue: 0,
+          duration: 500,
+          useNativeDriver: true,
+        }),
+        Animated.timing(fadeAnim, {
+          toValue: 1,
+          duration: 500,
+          useNativeDriver: true,
+        }),
       ])
     ).start();
   }, []);
 
   return {
     userInfo,
+    fetchSuggestions,
     following,
     followers,
     followTarget,
