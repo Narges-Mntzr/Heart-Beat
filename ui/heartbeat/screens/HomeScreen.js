@@ -11,6 +11,7 @@ import {
   Modal,
   Button,
   ScrollView,
+  RefreshControl,
 } from "react-native";
 import axios from "axios";
 import { Ionicons } from "@expo/vector-icons";
@@ -24,7 +25,8 @@ export default function HomeScreen({ userId, setUserId }) {
   const [showFollowModal, setShowFollowModal] = useState(false);
   const [showFollowingList, setShowFollowingList] = useState(false);
   const [showFollowersList, setShowFollowersList] = useState(false);
-  const [followError, setFollowError] = useState(null);
+  const [refreshing, setRefreshing] = useState(false);
+  const [error, setError] = useState("");
 
   const fetchData = async () => {
     const [res1, res2, res3] = await Promise.all([
@@ -45,21 +47,17 @@ export default function HomeScreen({ userId, setUserId }) {
   };
 
   const handleFollow = async () => {
-    if (!followTarget) return;
-
     try {
-      await axios.post("http://192.168.1.102:8000/api/follow/", {
+      setError("");
+      const res = await axios.post("http://192.168.1.102:8000/api/follow/", {
         follower_id: userId,
         followed_username: followTarget,
       });
       setFollowTarget("");
-      setFollowError(null);
       setShowFollowModal(false);
       fetchData();
     } catch (err) {
-      const msg =
-        err.response?.data?.error || "Something went wrong. Try again.";
-      setFollowError(msg);
+      setError(err.response?.data?.error || "Follow friend failed.");
     }
   };
 
@@ -91,11 +89,22 @@ export default function HomeScreen({ userId, setUserId }) {
     ).start();
   }, []);
 
+  const onRefresh = async () => {
+    setRefreshing(true);
+    await fetchData();
+    setRefreshing(false);
+  };
+
   return (
-    <ScrollView style={styles.container}>
+    <ScrollView
+      style={styles.container}
+      refreshControl={
+        <RefreshControl refreshing={refreshing} onRefresh={onRefresh} />
+      }
+    >
       <View style={styles.headerRow}>
         <View>
-          <Text style={styles.title}>Welcome {userInfo?.username}!</Text>
+          <Text style={styles.title}>{userInfo?.username}</Text>
           <Text style={styles.subtitle}>Joined: {userInfo?.date_joined}</Text>
         </View>
         <Button title="🚪 Log Out" onPress={handleLogout} color="#d9534f" />
@@ -146,10 +155,23 @@ export default function HomeScreen({ userId, setUserId }) {
 
       <TouchableOpacity style={styles.heartbeatButton} onPress={sendHeartbeat}>
         <View style={{ flexDirection: "row", alignItems: "center" }}>
-          <Animated.Text style={[styles.heartEmoji, { opacity: fadeAnim }]}>
+          <Animated.Text
+            style={[
+              styles.heartEmoji,
+              { opacity: userInfo?.last_heartbeat ? 0.5 : fadeAnim },
+            ]}
+          >
             ❤️
           </Animated.Text>
-          <Text style={styles.heartbeatText}> Send Heartbeat</Text>
+          {userInfo?.last_heartbeat ? (
+            <>
+              <Text style={{ color: "#fff", fontSize: 14 }}>
+                Last beat: {userInfo.last_heartbeat}
+              </Text>
+            </>
+          ) : (
+            <Text style={styles.heartbeatText}>Send Heartbeat</Text>
+          )}
         </View>
       </TouchableOpacity>
 
@@ -162,14 +184,32 @@ export default function HomeScreen({ userId, setUserId }) {
           <View style={styles.modalViewLarge}>
             <Text style={styles.sectionTitle}>Following</Text>
             <FlatList
+              style={{ marginBottom: 10 }}
               data={following}
               keyExtractor={(item) => item.username}
               renderItem={({ item }) => (
-                <Text style={styles.userItem}>
-                  {item.username} - {item.heartbeat ? "❤️" : "🤍"}
-                </Text>
+                <View style={styles.userRow}>
+                  <Text style={styles.userName}>{item.username}</Text>
+                  <View
+                    style={{
+                      flexDirection: "row",
+                      alignItems: "center",
+                      gap: 4,
+                    }}
+                  >
+                    {item.last_heartbeat && (
+                      <Text style={{ color: "red", fontSize: 12 }}>
+                        {item.last_heartbeat}
+                      </Text>
+                    )}
+                    <Text style={styles.heartStatus}>
+                      {item.heartbeat ? "❤️" : "🤍"}
+                    </Text>
+                  </View>
+                </View>
               )}
             />
+
             <Button title="Close" onPress={() => setShowFollowingList(false)} />
           </View>
         </View>
@@ -184,10 +224,13 @@ export default function HomeScreen({ userId, setUserId }) {
           <View style={styles.modalViewLarge}>
             <Text style={styles.sectionTitle}>Followers</Text>
             <FlatList
+              style={{ marginBottom: 10 }}
               data={followers}
               keyExtractor={(item) => item.username}
               renderItem={({ item }) => (
-                <Text style={styles.userItem}>{item.username}</Text>
+                <View style={styles.userRow}>
+                  <Text style={styles.userName}>{item.username}</Text>
+                </View>
               )}
             />
             <Button title="Close" onPress={() => setShowFollowersList(false)} />
@@ -205,12 +248,17 @@ export default function HomeScreen({ userId, setUserId }) {
               value={followTarget}
               onChangeText={setFollowTarget}
             />
-            {followError && <Text style={styles.error}>{followError}</Text>}
+            {error ? <Text style={styles.error}>{error}</Text> : null}
+
             <View style={styles.modalButtons}>
               <Button title="Follow" onPress={handleFollow} />
               <Button
                 title="Cancel"
-                onPress={() => setShowFollowModal(false)}
+                onPress={() => {
+                  setShowFollowModal(false);
+                  setError("");
+                  setFollowTarget("");
+                }}
                 color="#aaa"
               />
             </View>
@@ -267,13 +315,24 @@ const styles = StyleSheet.create({
   addFriendText: { fontSize: 20, fontWeight: "bold", color: "#0f9df5" },
   sectionTitle: { fontSize: 18, fontWeight: "600", marginBottom: 10 },
   userItem: {
-    fontSize: 16,
-    marginBottom: 5,
+    display: "none",
+  },
+  userRow: {
+    flexDirection: "row",
+    justifyContent: "space-between",
+    alignItems: "center",
     paddingVertical: 8,
     paddingHorizontal: 12,
     backgroundColor: "#f1f1f1",
     borderRadius: 8,
     marginVertical: 2,
+  },
+  userName: {
+    fontSize: 16,
+    fontWeight: "500",
+  },
+  heartStatus: {
+    fontSize: 30,
   },
   input: {
     borderWidth: 1,
@@ -314,7 +373,7 @@ const styles = StyleSheet.create({
   },
   error: {
     color: "red",
-    fontSize: 16,
+    fontSize: 18,
     marginBottom: 10,
   },
 });

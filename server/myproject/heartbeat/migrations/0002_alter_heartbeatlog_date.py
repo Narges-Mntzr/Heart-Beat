@@ -5,15 +5,14 @@ from django.db import migrations, models
 
 
 class Migration(migrations.Migration):
-
     dependencies = [
-        ('heartbeat', '0001_initial'),
+        ("heartbeat", "0001_initial"),
     ]
 
     operations = [
         migrations.AlterField(
-            model_name='heartbeatlog',
-            name='date',
+            model_name="heartbeatlog",
+            name="date",
             field=models.DateTimeField(default=django.utils.timezone.now),
         ),
     ]
