@@ -6,7 +6,6 @@ import config from "../config";
 
 const BASE_URL = config.BASE_URL;
 
-
 export default function LoginScreen({ navigation, setUserId }) {
   const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
@@ -64,7 +63,7 @@ export default function LoginScreen({ navigation, setUserId }) {
         <TouchableOpacity style={styles.loginButton} onPress={handleLogin}>
           <Text style={styles.loginButtonText}>Login</Text>
         </TouchableOpacity>
-        <View style={{ width: 20 }} />
+
         <TouchableOpacity style={styles.loginButton} onPress={handleRegister}>
           <Text style={styles.loginButtonText}>Register</Text>
         </TouchableOpacity>

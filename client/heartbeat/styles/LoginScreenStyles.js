@@ -1,22 +1,17 @@
-// LoginScreenStyles.js
 import { StyleSheet } from "react-native";
 
 const styles = StyleSheet.create({
-  buttonRow: {
-    flexDirection: "row",
-    justifyContent: "center",
-    marginTop: 10,
-  },
   container: {
     alignItems: "center",
     flex: 1,
     justifyContent: "center",
     padding: 20,
   },
-  error: {
-    color: "red",
-    fontSize: 18,
-    marginBottom: 10,
+  title: {
+    fontSize: 42,
+    fontWeight: "bold",
+    marginBottom: 40,
+    color: "#0f9df5",
   },
   input: {
     borderColor: "#aaa",
@@ -24,26 +19,30 @@ const styles = StyleSheet.create({
     borderWidth: 1,
     marginBottom: 15,
     padding: 10,
-    width: "50%",
+    width: "80%",
+  },
+  error: {
+    color: "red",
+    fontSize: 18,
+    marginBottom: 10,
+  },
+  buttonRow: {
+    flexDirection: "row",
+    justifyContent: "space-between",
+    width: "70%",
+    marginTop: 10,
   },
   loginButton: {
-    alignItems: "center",
-    alignSelf: "center",
     backgroundColor: "#007bff",
+    paddingVertical: 14,
     borderRadius: 8,
-    marginTop: 10,
-    paddingVertical: 12,
-    width: "20%",
+    width: "48%",
+    alignItems: "center",
   },
   loginButtonText: {
     color: "white",
     fontSize: 16,
     fontWeight: "bold",
-  },
-  title: {
-    fontSize: 40,
-    fontWeight: "bold",
-    marginBottom: 30,
   },
 });
 

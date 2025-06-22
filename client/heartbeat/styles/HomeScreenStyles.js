@@ -7,18 +7,18 @@ const styles = StyleSheet.create({
     borderRadius: 10,
     flex: 1,
     justifyContent: "center",
-    marginHorizontal: 5,
-    paddingHorizontal: 40,
-    paddingVertical: 10,
+
+    paddingHorizontal: 30,
+    paddingVertical: 12,
   },
   addFriendText: {
     color: "#0f9df5",
-    fontSize: 20,
+    fontSize: 16,
     fontWeight: "bold",
   },
   container: {
     flex: 1,
-    padding: 20,
+    padding: 16,
     paddingTop: 50,
   },
   error: {
@@ -34,8 +34,8 @@ const styles = StyleSheet.create({
   },
   heartEmoji: {
     color: "white",
-    fontSize: 18,
-    marginRight: 5,
+    fontSize: 20,
+    marginRight: 6,
   },
   heartbeatButton: {
     alignItems: "center",
@@ -43,6 +43,7 @@ const styles = StyleSheet.create({
     borderRadius: 10,
     marginVertical: 15,
     paddingVertical: 12,
+    paddingHorizontal: 20,
   },
   heartbeatText: {
     color: "white",
@@ -99,20 +100,20 @@ const styles = StyleSheet.create({
     alignItems: "left",
     borderRadius: 10,
     flex: 1,
-    marginHorizontal: 5,
-    paddingHorizontal: 40,
-    paddingVertical: 10,
+    paddingHorizontal: 16,
+    paddingVertical: 12,
   },
   statLabel: {
     color: "#555",
-    fontSize: 16,
+    fontSize: 14,
   },
   statNumber: {
-    fontSize: 22,
+    fontSize: 20,
     fontWeight: "bold",
   },
   statsRow: {
     flexDirection: "row",
+    flexWrap: "wrap",
     justifyContent: "space-between",
     marginVertical: 20,
   },
