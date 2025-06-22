@@ -1,9 +1,9 @@
 # server/core/views.py
 from django.utils.timezone import now
+from django.db.models import Q
 from rest_framework.decorators import api_view
 from rest_framework.response import Response
 from .models import User, Follow, HeartbeatLog
-from datetime import date
 from datetime import timedelta
 import logging
 import re
@@ -176,3 +176,16 @@ def get_user_info(request, user_id):
         )
     except User.DoesNotExist:
         return Response({"error": "User not found"}, status=404)
+
+
+@api_view(["GET"])
+def search_users(request):
+    query = request.GET.get("q", "")
+    user_id = request.GET.get("user_id")
+    if not query:
+        return Response([])
+
+    matches = User.objects.filter(Q(username__icontains=query) & ~Q(id=user_id))[:10]
+
+    results = [{"username": u.username} for u in matches]
+    return Response(results)

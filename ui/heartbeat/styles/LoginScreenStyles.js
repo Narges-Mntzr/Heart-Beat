@@ -1,47 +1,50 @@
-// HomeScreenStyles.js
+// LoginScreenStyles.js
 import { StyleSheet } from "react-native";
 
 const styles = StyleSheet.create({
-    container: {
-      flex: 1,
-      justifyContent: "center",
-      alignItems: "center",
-      padding: 20,
-    },
-    title: { fontSize: 40, marginBottom: 30, fontWeight: "bold" },
-    input: {
-      borderWidth: 1,
-      borderColor: "#aaa",
-      width: "50%",
-      padding: 10,
-      marginBottom: 15,
-      borderRadius: 5,
-    },
-    buttonRow: {
-      flexDirection: "row",
-      justifyContent: "center",
-      marginTop: 10,
-    },
-    error: {
-      color: "red",
-      fontSize: 18,
-      marginBottom: 10,
-    },
-    loginButton: {
-      width: "20%",
-      backgroundColor: "#007bff",
-      paddingVertical: 12,
-      borderRadius: 8,
-      alignItems: "center",
-      alignSelf: "center", 
-      marginTop: 10,
-    },
-    loginButtonText: {
-      color: "white",
-      fontSize: 16,
-      fontWeight: "bold",
-    },
-  });
-  
+  buttonRow: {
+    flexDirection: "row",
+    justifyContent: "center",
+    marginTop: 10,
+  },
+  container: {
+    alignItems: "center",
+    flex: 1,
+    justifyContent: "center",
+    padding: 20,
+  },
+  error: {
+    color: "red",
+    fontSize: 18,
+    marginBottom: 10,
+  },
+  input: {
+    borderColor: "#aaa",
+    borderRadius: 5,
+    borderWidth: 1,
+    marginBottom: 15,
+    padding: 10,
+    width: "50%",
+  },
+  loginButton: {
+    alignItems: "center",
+    alignSelf: "center",
+    backgroundColor: "#007bff",
+    borderRadius: 8,
+    marginTop: 10,
+    paddingVertical: 12,
+    width: "20%",
+  },
+  loginButtonText: {
+    color: "white",
+    fontSize: 16,
+    fontWeight: "bold",
+  },
+  title: {
+    fontSize: 40,
+    fontWeight: "bold",
+    marginBottom: 30,
+  },
+});
 
 export default styles;

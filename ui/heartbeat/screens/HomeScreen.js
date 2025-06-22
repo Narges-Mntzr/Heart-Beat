@@ -16,6 +16,9 @@ import axios from "axios";
 import { Ionicons } from "@expo/vector-icons";
 import AsyncStorage from "@react-native-async-storage/async-storage";
 import styles from "../styles/HomeScreenStyles";
+import config from "../config";
+
+const BASE_URL = config.BASE_URL;
 
 export default function HomeScreen({ userId, setUserId }) {
   const [following, setFollowing] = useState([]);
@@ -27,12 +30,13 @@ export default function HomeScreen({ userId, setUserId }) {
   const [showFollowersList, setShowFollowersList] = useState(false);
   const [refreshing, setRefreshing] = useState(false);
   const [error, setError] = useState("");
+  const [suggestions, setSuggestions] = useState([]);
 
   const fetchData = async () => {
     const [res1, res2, res3] = await Promise.all([
-      axios.get(`http://192.168.1.102:8000/api/following/${userId}/`),
-      axios.get(`http://192.168.1.102:8000/api/followers/${userId}/`),
-      axios.get(`http://192.168.1.102:8000/api/user/${userId}/`),
+      axios.get(`${BASE_URL}/following/${userId}/`),
+      axios.get(`${BASE_URL}/followers/${userId}/`),
+      axios.get(`${BASE_URL}/user/${userId}/`),
     ]);
     setFollowing(res1.data);
     setFollowers(res2.data);
@@ -40,7 +44,7 @@ export default function HomeScreen({ userId, setUserId }) {
   };
 
   const sendHeartbeat = async () => {
-    await axios.post("http://192.168.1.102:8000/api/heartbeat/", {
+    await axios.post(`${BASE_URL}/heartbeat/`, {
       user_id: userId,
     });
     fetchData();
@@ -49,7 +53,7 @@ export default function HomeScreen({ userId, setUserId }) {
   const handleFollow = async () => {
     try {
       setError("");
-      const res = await axios.post("http://192.168.1.102:8000/api/follow/", {
+      const res = await axios.post(`${BASE_URL}/follow/`, {
         follower_id: userId,
         followed_username: followTarget,
       });
@@ -93,6 +97,22 @@ export default function HomeScreen({ userId, setUserId }) {
     setRefreshing(true);
     await fetchData();
     setRefreshing(false);
+  };
+
+  const fetchSuggestions = async (text) => {
+    setFollowTarget(text);
+    if (!text) {
+      setSuggestions([]);
+      return;
+    }
+    try {
+      const res = await axios.get(`${BASE_URL}/search_users/`, {
+        params: { q: text, user_id: userId },
+      });
+      setSuggestions(res.data);
+    } catch (err) {
+      console.error("Failed to fetch suggestions", err);
+    }
   };
 
   return (
@@ -246,8 +266,20 @@ export default function HomeScreen({ userId, setUserId }) {
               style={styles.input}
               placeholder="Enter username"
               value={followTarget}
-              onChangeText={setFollowTarget}
+              onChangeText={fetchSuggestions}
             />
+            {suggestions.map((user, index) => (
+              <TouchableOpacity
+                key={index}
+                onPress={() => {
+                  setFollowTarget(user.username);
+                  setSuggestions([]);
+                }}
+                style={styles.suggestionItem}
+              >
+                <Text>{user.username}</Text>
+              </TouchableOpacity>
+            ))}
             {error ? <Text style={styles.error}>{error}</Text> : null}
 
             <View style={styles.modalButtons}>

@@ -2,6 +2,9 @@ import React, { useState } from "react";
 import { View, TextInput, TouchableOpacity, Text } from "react-native";
 import axios from "axios";
 import styles from "../styles/LoginScreenStyles";
+import config from "../config";
+
+const BASE_URL = config.BASE_URL;
 
 
 export default function LoginScreen({ navigation, setUserId }) {
@@ -12,7 +15,7 @@ export default function LoginScreen({ navigation, setUserId }) {
   const handleLogin = async () => {
     try {
       setError("");
-      const res = await axios.post("http://192.168.1.102:8000/api/login/", {
+      const res = await axios.post(`${BASE_URL}/login/`, {
         username,
         password,
       });
@@ -25,7 +28,7 @@ export default function LoginScreen({ navigation, setUserId }) {
   const handleRegister = async () => {
     try {
       setError("");
-      const res = await axios.post("http://192.168.1.102:8000/api/register/", {
+      const res = await axios.post(`${BASE_URL}/register/`, {
         username,
         password,
       });
