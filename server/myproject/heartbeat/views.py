@@ -1,9 +1,11 @@
 # server/core/views.py
 from django.utils.timezone import now
 from django.db.models import Q
+from rest_framework import status
 from rest_framework.decorators import api_view
 from rest_framework.response import Response
-from .models import User, Follow, HeartbeatLog
+from .models import User, Follow, HeartbeatLog, Message
+from .services import get_time_ago_str
 from datetime import timedelta
 import logging
 import re
@@ -89,26 +91,21 @@ def list_following(request, user_id):
         )
         last_heartbeat_str = None
 
-        if latest_heartbeat:
-            diff = now() - latest_heartbeat.date
-            seconds = diff.total_seconds()
+        last_heartbeat_str = get_time_ago_str(latest_heartbeat.date) if latest_heartbeat else None
 
-            if seconds < 60:
-                last_heartbeat_str = "Just now"
-            elif seconds < 3600:
-                minutes = int(seconds // 60)
-                last_heartbeat_str = (
-                    f"{minutes} minute{'s' if minutes != 1 else ''} ago"
-                )
-            else:
-                hours = int(seconds // 3600)
-                last_heartbeat_str = f"{hours} hour{'s' if hours != 1 else ''} ago"
+        unseen_messages = Message.objects.filter(
+            sender=target, receiver=user, seen=False
+        ).order_by("sent_at")
+
+        has_unseen_message = unseen_messages.exists()
+        unseen_message_id = unseen_messages.first().id if has_unseen_message else None
 
         data.append(
             {
                 "username": target.username,
                 "heartbeat": bool(last_heartbeat_str),
                 "last_heartbeat": last_heartbeat_str,
+                "unseen_message_id": unseen_message_id,
             }
         )
 
@@ -149,23 +146,7 @@ def get_user_info(request, user_id):
             .first()
         )
 
-        if latest_heartbeat:
-            diff = now() - latest_heartbeat.date
-            seconds = diff.total_seconds()
-
-            if seconds < 60:
-                last_heartbeat_str = "Just now"
-            elif seconds < 3600:
-                minutes = int(seconds // 60)
-                last_heartbeat_str = (
-                    f"{minutes} minute{'s' if minutes != 1 else ''} ago"
-                )
-            else:
-                hours = int(seconds // 3600)
-                last_heartbeat_str = f"{hours} hour{'s' if hours != 1 else ''} ago"
-
-        else:
-            last_heartbeat_str = None
+        last_heartbeat_str = get_time_ago_str(latest_heartbeat.date) if latest_heartbeat else None
 
         return Response(
             {
@@ -189,3 +170,44 @@ def search_users(request):
 
     results = [{"username": u.username} for u in matches]
     return Response(results)
+
+
+@api_view(['POST'])
+def send_message(request):
+    sender_id = request.data.get('sender_id')
+    receiver_username = request.data.get('receiver_username')
+    content = request.data.get('content')
+
+    if not all([sender_id, receiver_username, content]):
+        return Response({'error': 'Missing fields.'}, status=400)
+
+    sender = User.objects.get(id=sender_id)
+    receiver = User.objects.get(username=receiver_username)
+
+    if not Follow.objects.filter(follower=receiver, followed=sender).exists():
+        return Response({'error': 'You can only send messages to your followers.'}, status=403)
+    
+    if len(content) > 100:
+        return Response({'error': 'The message text must be a maximum of 100 characters.'}, status=403)
+
+    message = Message.objects.create(sender=sender, receiver=receiver, content=content)
+    return Response({'status': 'Message sent'})
+
+
+@api_view(['GET'])
+def get_message_content(request, message_id):
+    try:
+        message = Message.objects.get(id=message_id)
+        message.seen = True
+        message.save()
+
+        return Response({
+            'id': message.id,
+            'sender_username': message.sender.username,
+            'content': message.content,
+            'sent_at': get_time_ago_str(message.sent_at),
+        })
+    except Message.DoesNotExist:
+        return Response({'error': 'Message not found'}, status=status.HTTP_404_NOT_FOUND)
+
+

@@ -27,7 +27,7 @@ DEBUG = True
 
 # ALLOWED_HOSTS = []
 # ALLOWED_HOSTS = ['*']
-ALLOWED_HOSTS = ["192.168.1.102", "localhost", "127.0.0.1", "172.20.10.5"]
+ALLOWED_HOSTS = ["192.168.1.104", "localhost", "127.0.0.1", "172.20.10.5"]
 
 
 # Application definition
