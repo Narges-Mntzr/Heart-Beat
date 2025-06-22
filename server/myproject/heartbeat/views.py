@@ -91,7 +91,9 @@ def list_following(request, user_id):
         )
         last_heartbeat_str = None
 
-        last_heartbeat_str = get_time_ago_str(latest_heartbeat.date) if latest_heartbeat else None
+        last_heartbeat_str = (
+            get_time_ago_str(latest_heartbeat.date) if latest_heartbeat else None
+        )
 
         unseen_messages = Message.objects.filter(
             sender=target, receiver=user, seen=False
@@ -146,7 +148,9 @@ def get_user_info(request, user_id):
             .first()
         )
 
-        last_heartbeat_str = get_time_ago_str(latest_heartbeat.date) if latest_heartbeat else None
+        last_heartbeat_str = (
+            get_time_ago_str(latest_heartbeat.date) if latest_heartbeat else None
+        )
 
         return Response(
             {
@@ -172,42 +176,49 @@ def search_users(request):
     return Response(results)
 
 
-@api_view(['POST'])
+@api_view(["POST"])
 def send_message(request):
-    sender_id = request.data.get('sender_id')
-    receiver_username = request.data.get('receiver_username')
-    content = request.data.get('content')
+    sender_id = request.data.get("sender_id")
+    receiver_username = request.data.get("receiver_username")
+    content = request.data.get("content")
 
     if not all([sender_id, receiver_username, content]):
-        return Response({'error': 'Missing fields.'}, status=400)
+        return Response({"error": "Missing fields."}, status=400)
 
     sender = User.objects.get(id=sender_id)
     receiver = User.objects.get(username=receiver_username)
 
     if not Follow.objects.filter(follower=receiver, followed=sender).exists():
-        return Response({'error': 'You can only send messages to your followers.'}, status=403)
-    
+        return Response(
+            {"error": "You can only send messages to your followers."}, status=403
+        )
+
     if len(content) > 100:
-        return Response({'error': 'The message text must be a maximum of 100 characters.'}, status=403)
+        return Response(
+            {"error": "The message text must be a maximum of 100 characters."},
+            status=403,
+        )
 
-    message = Message.objects.create(sender=sender, receiver=receiver, content=content)
-    return Response({'status': 'Message sent'})
+    Message.objects.create(sender=sender, receiver=receiver, content=content)
+    return Response({"status": "Message sent"})
 
 
-@api_view(['GET'])
+@api_view(["GET"])
 def get_message_content(request, message_id):
     try:
         message = Message.objects.get(id=message_id)
         message.seen = True
         message.save()
 
-        return Response({
-            'id': message.id,
-            'sender_username': message.sender.username,
-            'content': message.content,
-            'sent_at': get_time_ago_str(message.sent_at),
-        })
+        return Response(
+            {
+                "id": message.id,
+                "sender_username": message.sender.username,
+                "content": message.content,
+                "sent_at": get_time_ago_str(message.sent_at),
+            }
+        )
     except Message.DoesNotExist:
-        return Response({'error': 'Message not found'}, status=status.HTTP_404_NOT_FOUND)
-
-
+        return Response(
+            {"error": "Message not found"}, status=status.HTTP_404_NOT_FOUND
+        )

@@ -10,7 +10,7 @@ urlpatterns = [
     path("login/", views.login_user),
     path("register/", views.register_user),
     path("search_users/", views.search_users),
-    path('seen-message/<int:message_id>/', views.get_message_content),
-    path('send-message/', views.send_message),
+    path("seen-message/<int:message_id>/", views.get_message_content),
+    path("send-message/", views.send_message),
     path("user/<int:user_id>/", views.get_user_info),
 ]
