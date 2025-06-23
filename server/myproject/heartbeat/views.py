@@ -9,6 +9,8 @@ from .services import get_time_ago_str
 from datetime import timedelta
 import logging
 import re
+from django.utils.translation import gettext as _
+
 
 logger = logging.getLogger(__name__)
 
@@ -21,17 +23,20 @@ def register_user(request):
     password = request.data.get("password")
 
     if not username or not password:
-        return Response({"error": "Username and password are required."}, status=400)
+        return Response({"error": _("Username and password are required.")}, status=400)
 
     if len(username) < 6:
-        return Response({"error": "Username must be at least 6 characters long."}, status=400)
-
+        return Response(
+            {"error": _("Username must be at least 6 characters long.")}, status=400
+        )
 
     if not ALLOWED_USERNAME_PATTERN.match(username):
-        return Response({"error": "Username contains invalid characters."}, status=400)
+        return Response(
+            {"error": _("Username contains invalid characters.")}, status=400
+        )
 
     if User.objects.filter(username__iexact=username).exists():
-        return Response({"error": "Username already exists."}, status=409)
+        return Response({"error": _("Username already exists.")}, status=409)
 
     user = User.objects.create(username=username, password=password)
     return Response({"user_id": user.id}, status=201)
@@ -45,10 +50,10 @@ def login_user(request):
     try:
         user = User.objects.get(username__iexact=username)
         if user.password != password:
-            return Response({"error": "Invalid password."}, status=401)
+            return Response({"error": _("Invalid password.")}, status=401)
         return Response({"user_id": user.id}, status=200)
     except User.DoesNotExist:
-        return Response({"error": "User not found."}, status=404)
+        return Response({"error": _("User not found.")}, status=404)
 
 
 @api_view(["POST"])
@@ -56,7 +61,7 @@ def follow_user(request):
     follower_id = request.data.get("follower_id")
     followed_username = request.data.get("followed_username")
     if not followed_username:
-        return Response({"error": "Username is necessary."}, status=409)
+        return Response({"error": _("Username is necessary.")}, status=409)
 
     try:
         follower = User.objects.get(id=follower_id)
@@ -65,15 +70,15 @@ def follow_user(request):
         existing = Follow.objects.filter(follower=follower, followed=followed).exists()
         if existing:
             return Response(
-                {"error": "You are already following this user."}, status=409
+                {"error": _("You are already following this user.")}, status=409
             )
 
         Follow.objects.create(follower=follower, followed=followed)
         return Response({"status": "followed"}, status=200)
 
     except User.DoesNotExist:
-        logger.warning("User not found during follow operation.")
-        return Response({"error": "User not found"}, status=404)
+        # logger.warning("User not found during follow operation.")
+        return Response({"error": _("User not found")}, status=404)
 
 
 @api_view(["GET"])
@@ -134,7 +139,7 @@ def send_heartbeat(request):
     user = User.objects.get(id=user_id)
     now_time = now()
     HeartbeatLog.objects.get_or_create(user=user, date=now_time)
-    return Response({"status": "heartbeat recorded"}, status=200)
+    return Response({"status": _("heartbeat recorded")}, status=200)
 
 
 @api_view(["GET"])
@@ -164,7 +169,7 @@ def get_user_info(request, user_id):
             }
         )
     except User.DoesNotExist:
-        return Response({"error": "User not found"}, status=404)
+        return Response({"error": _("User not found")}, status=404)
 
 
 @api_view(["GET"])
@@ -187,24 +192,24 @@ def send_message(request):
     content = request.data.get("content")
 
     if not all([sender_id, receiver_username, content]):
-        return Response({"error": "Missing fields."}, status=400)
+        return Response({"error": _("Missing fields.")}, status=400)
 
     sender = User.objects.get(id=sender_id)
     receiver = User.objects.get(username=receiver_username)
 
     if not Follow.objects.filter(follower=receiver, followed=sender).exists():
         return Response(
-            {"error": "You can only send messages to your followers."}, status=403
+            {"error": _("You can only send messages to your followers.")}, status=403
         )
 
     if len(content) > 100:
         return Response(
-            {"error": "The message text must be a maximum of 100 characters."},
+            {"error": _("The message text must be a maximum of 100 characters.")},
             status=403,
         )
 
     Message.objects.create(sender=sender, receiver=receiver, content=content)
-    return Response({"status": "Message sent"})
+    return Response({"status": _("Message sent")})
 
 
 @api_view(["GET"])
@@ -224,5 +229,5 @@ def get_message_content(request, message_id):
         )
     except Message.DoesNotExist:
         return Response(
-            {"error": "Message not found"}, status=status.HTTP_404_NOT_FOUND
+            {"error": _("Message not found")}, status=status.HTTP_404_NOT_FOUND
         )
