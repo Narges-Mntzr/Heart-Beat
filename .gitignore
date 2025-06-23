@@ -1,3 +1,4 @@
 env/
 __pycache__/
 .expo/
+db.sqlite3
