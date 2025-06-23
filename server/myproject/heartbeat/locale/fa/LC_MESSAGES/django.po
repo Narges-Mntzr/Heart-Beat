@@ -24,8 +24,8 @@ msgstr "لحظاتی پیش"
 
 #: heartbeat/services.py:16
 #, python-brace-format
-msgid "{} mins ago"
-msgstr "{} دقیقه پیش"
+msgid "{minutes} mins ago"
+msgstr "{minutes} دقیقه پیش"
 
 #: heartbeat/services.py:19
 #, python-brace-format
