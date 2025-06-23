@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2025-06-23 09:40+0330\n"
+"POT-Creation-Date: 2025-06-23 11:19+0330\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -17,20 +17,24 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n > 1);\n"
-#: heartbeat/services.py:12
+
+#: heartbeat/services.py:13
 msgid "Just now"
 msgstr "لحظاتی پیش"
 
-#: heartbeat/services.py:15
-msgid "{minutes} min{'s' if minutes != 1 else ''} ago"
-msgstr "{minutes} دقیقه پیش"
+#: heartbeat/services.py:16
+#, python-brace-format
+msgid "{} mins ago"
+msgstr "{} دقیقه پیش"
 
-#: heartbeat/services.py:18
-msgid "{hours} hour{'s' if hours != 1 else ''} ago"
+#: heartbeat/services.py:19
+#, python-brace-format
+msgid "{hours} hours ago"
 msgstr "{hours} ساعت پیش"
 
-#: heartbeat/services.py:21
-msgid "{days} day{'s' if days != 1 else ''} ago"
+#: heartbeat/services.py:22
+#, python-brace-format
+msgid "{days} days ago"
 msgstr "{days} روز پیش"
 
 #: heartbeat/views.py:26

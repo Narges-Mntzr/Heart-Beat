@@ -98,7 +98,8 @@ const styles = StyleSheet.create({
   sectionTitle: {
     fontSize: 20,
     fontWeight: "600",
-    marginBottom: 12,
+    marginBottom: 18,
+    textAlign:"right"
   },
   separator: {
     alignSelf: "stretch",

@@ -1,5 +1,11 @@
-import React, { useState } from "react";
-import { View, TextInput, TouchableOpacity, Text } from "react-native";
+import React, { useState, useRef, useEffect } from "react";
+import {
+  View,
+  TextInput,
+  TouchableOpacity,
+  Text,
+  Animated,
+} from "react-native";
 import axios from "axios";
 import styles from "../styles/LoginScreenStyles";
 import config from "../config";
@@ -10,6 +16,7 @@ export default function LoginScreen({ navigation, setUserId }) {
   const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
   const [error, setError] = useState("");
+  const fadeAnim = useRef(new Animated.Value(1)).current;
 
   const handleLogin = async () => {
     try {
@@ -20,7 +27,7 @@ export default function LoginScreen({ navigation, setUserId }) {
       });
       setUserId(res.data.user_id);
     } catch (err) {
-      setError(err.response?.data?.error || "Login failed.");
+      setError(err.response?.data?.error || "ورود ناموفق بود.");
     }
   };
 
@@ -33,17 +40,48 @@ export default function LoginScreen({ navigation, setUserId }) {
       });
       setUserId(res.data.user_id);
     } catch (err) {
-      setError(err.response?.data?.error || "Registration failed.");
+      setError(err.response?.data?.error || "ثبت‌نام با مشکل مواجه شد.");
     }
   };
 
+  useEffect(() => {
+    Animated.loop(
+      Animated.sequence([
+        Animated.timing(fadeAnim, {
+          toValue: 0,
+          duration: 500,
+          useNativeDriver: true,
+        }),
+        Animated.timing(fadeAnim, {
+          toValue: 1,
+          duration: 500,
+          useNativeDriver: true,
+        }),
+      ])
+    ).start();
+  }, []);
+
   return (
     <View style={styles.container}>
-      <Text style={styles.title}>Heartbeat</Text>
+      <View
+        style={{
+          flexDirection: "row",
+          alignItems: "center",
+          justifyContent: "center",
+        }}
+      >
+        <Animated.Text
+          style={[styles.heartEmoji, { opacity: fadeAnim }]}
+        >
+          ❤️
+        </Animated.Text>
+        <Text style={styles.title}>ضربان</Text>
+        
+      </View>
 
       <TextInput
         style={styles.input}
-        placeholder="Username"
+        placeholder="نام کاربری"
         value={username}
         autoCapitalize="none"
         onChangeText={setUsername}
@@ -51,7 +89,7 @@ export default function LoginScreen({ navigation, setUserId }) {
 
       <TextInput
         style={styles.input}
-        placeholder="Password"
+        placeholder="رمز عبور"
         value={password}
         secureTextEntry
         onChangeText={setPassword}
@@ -60,12 +98,12 @@ export default function LoginScreen({ navigation, setUserId }) {
       {error ? <Text style={styles.error}>{error}</Text> : null}
 
       <View style={styles.buttonRow}>
-        <TouchableOpacity style={styles.loginButton} onPress={handleLogin}>
-          <Text style={styles.loginButtonText}>Login</Text>
+      <TouchableOpacity style={styles.loginButton} onPress={handleRegister}>
+          <Text style={styles.loginButtonText}>ثبت‌نام </Text>
         </TouchableOpacity>
 
-        <TouchableOpacity style={styles.loginButton} onPress={handleRegister}>
-          <Text style={styles.loginButtonText}>Register</Text>
+        <TouchableOpacity style={styles.loginButton} onPress={handleLogin}>
+          <Text style={styles.loginButtonText}>ورود</Text>
         </TouchableOpacity>
       </View>
     </View>

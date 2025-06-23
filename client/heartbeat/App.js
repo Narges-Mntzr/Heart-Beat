@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from "react";
 import { NavigationContainer } from "@react-navigation/native";
 import { createNativeStackNavigator } from "@react-navigation/native-stack";
+import { useFonts } from "expo-font";
 import AsyncStorage from "@react-native-async-storage/async-storage";
 import LoginScreen from "./screens/LoginScreen";
 import HomeScreen from "./screens/HomeScreen";
@@ -28,8 +29,17 @@ export default function App() {
     }
   };
 
-  if (loading) return null;
+  const [fontsLoaded] = useFonts({
+    Vazirmatn: require("./assets/fonts/Vazirmatn.ttf"),
+    VazirmatnBold: require("./assets/fonts/Vazirmatn-Bold.ttf"),
+    Ray: require("./assets/fonts/Ray.ttf"),
+    RayBold: require("./assets/fonts/Ray-Bold.ttf"),
+    Shabnam: require("./assets/fonts/Shabnam.ttf"),
+    ShabnamBold: require("./assets/fonts/Shabnam-Bold.ttf"),
+  });
 
+  if (loading || !fontsLoaded) return null;
+  
   return (
     <NavigationContainer>
       <Stack.Navigator screenOptions={{ headerShown: false }}>

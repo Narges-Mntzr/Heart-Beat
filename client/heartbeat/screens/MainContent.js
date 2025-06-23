@@ -17,7 +17,7 @@ export default function MainContent({ logic }) {
           onPress={() => logic.setShowFollowingList(true)}
         >
           <Text style={styles.statNumber}>{logic.following.length}</Text>
-          <Text style={styles.statLabel}>Following</Text>
+          <Text style={styles.statLabel}>دنبال‌شده‌ها</Text>
         </TouchableOpacity>
 
         <View style={styles.separator} />
@@ -27,7 +27,7 @@ export default function MainContent({ logic }) {
           onPress={() => logic.setShowFollowersList(true)}
         >
           <Text style={styles.statNumber}>{logic.followers.length}</Text>
-          <Text style={styles.statLabel}>Followers</Text>
+          <Text style={styles.statLabel}>دنبال‌کننده‌ها</Text>
         </TouchableOpacity>
 
         <View style={styles.separator} />
@@ -43,7 +43,7 @@ export default function MainContent({ logic }) {
               color="#0f9df5"
               style={{ marginRight: 6 }}
             />
-            <Text style={styles.addFriendText}>Add Friend</Text>
+            <Text style={styles.addFriendText}>پیداکردن دوستان</Text>
           </View>
         </TouchableOpacity>
       </View>
@@ -60,8 +60,8 @@ export default function MainContent({ logic }) {
           </Animated.Text>
           <Text style={styles.heartbeatText}>
             {logic.userInfo?.last_heartbeat
-              ? `Last beat: ${logic.userInfo.last_heartbeat}`
-              : "Send Heartbeat"}
+              ? `آخرین تپش: ${logic.userInfo.last_heartbeat}`
+              : "ارسال ضربان"}
           </Text>
         </View>
       </TouchableOpacity>

@@ -7,11 +7,17 @@ const styles = StyleSheet.create({
     justifyContent: "center",
     padding: 20,
   },
+  heartEmoji: {
+    fontSize: 28,
+    marginRight: 10,
+    marginBottom: 40,
+  },
   title: {
     fontSize: 42,
     fontWeight: "bold",
     marginBottom: 40,
     color: "#0f9df5",
+    fontFamily:"Shabnam"
   },
   input: {
     borderColor: "#aaa",

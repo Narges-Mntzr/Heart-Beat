@@ -55,7 +55,7 @@ export default function useHomeScreenLogic({ userId, setUserId }) {
       setShowFollowModal(false);
       fetchData();
     } catch (err) {
-      setError(err.response?.data?.error || "Follow friend failed.");
+      setError(err.response?.data?.error || "روند دنبال کردن دوست به مشکل خورده است.");
     }
   };
 
@@ -66,7 +66,7 @@ export default function useHomeScreenLogic({ userId, setUserId }) {
 
   const handleSendMessage = async () => {
     if (!messageContent.trim()) {
-      setMessageError("Message cannot be empty.");
+      setMessageError("محتوای پیام نمی‌تواند خالی باشد");
       return;
     }
 
@@ -82,7 +82,7 @@ export default function useHomeScreenLogic({ userId, setUserId }) {
       setSelectedFollower(null);
       setMessageError("");
     } catch (err) {
-      setMessageError(err.response?.data?.error || "Failed to send message.");
+      setMessageError(err.response?.data?.error || "ارسال پیام به مشکل خورده است.");
     }
   };
 
@@ -95,7 +95,7 @@ export default function useHomeScreenLogic({ userId, setUserId }) {
       });
       setSuggestions(res.data);
     } catch (err) {
-      console.error("Failed to fetch suggestions", err);
+      console.error("دریافت پیشنهادات به مشکل خورده است.", err);
     }
   };
 
@@ -112,7 +112,7 @@ export default function useHomeScreenLogic({ userId, setUserId }) {
       setShowIncomingMessageModal(true);
       fetchData();
     } catch (err) {
-      alert("Failed to fetch message.");
+      alert("دریافت پیام به مشکل خورده است.");
     }
   };
 
@@ -124,7 +124,7 @@ export default function useHomeScreenLogic({ userId, setUserId }) {
       );
       await Share.share({ message });
     } catch (error) {
-      alert("Something went wrong while sharing.");
+      alert("روند اشتراک گذاری به مشکل خورده است.");
       console.log("Share error:", error);
     }
   };

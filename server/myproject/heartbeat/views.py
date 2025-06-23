@@ -1,15 +1,15 @@
 # server/core/views.py
 from django.utils.timezone import now
 from django.db.models import Q
+from django.utils.translation import gettext as _
 from rest_framework import status
 from rest_framework.decorators import api_view
 from rest_framework.response import Response
 from .models import User, Follow, HeartbeatLog, Message
-from .services import get_time_ago_str
+from .services import get_time_ago_str,to_jalali
 from datetime import timedelta
 import logging
 import re
-from django.utils.translation import gettext as _
 
 
 logger = logging.getLogger(__name__)
@@ -164,7 +164,7 @@ def get_user_info(request, user_id):
         return Response(
             {
                 "username": user.username,
-                "date_joined": user.date_joined.strftime("%Y-%m-%d"),
+                "date_joined": to_jalali(user.date_joined),
                 "last_heartbeat": last_heartbeat_str,
             }
         )

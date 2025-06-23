@@ -9,38 +9,26 @@ import {
   Button,
   TextInput,
 } from "react-native";
-import { Ionicons, FontAwesome } from "@expo/vector-icons";
+import { Ionicons } from "@expo/vector-icons";
 import styles from "../styles/HomeScreenStyles";
 
 export default function Modals({ logic }) {
   return (
     <>
-      {/* Following List */}
-      <Modal
-        visible={logic.showFollowingList}
-        animationType="slide"
-        transparent
-      >
+      {/* لیست دنبال‌شده‌ها */}
+      <Modal visible={logic.showFollowingList} animationType="slide" transparent>
         <View style={styles.modalOverlay}>
           <View style={styles.modalViewLarge}>
-            <Text style={styles.sectionTitle}>Following</Text>
+            <Text style={styles.sectionTitle}>ضربان‌هایی که دنبال می‌کنی</Text>
             <FlatList
               style={{ marginBottom: 10 }}
               data={logic.following}
               keyExtractor={(item) => item.username}
               renderItem={({ item }) => (
                 <View style={styles.userRow}>
-                  <View
-                    style={{
-                      flexDirection: "row",
-                      alignItems: "center",
-                      gap: 4,
-                    }}
-                  >
+                  <View style={{ flexDirection: "row", alignItems: "center", gap: 4 }}>
                     <TouchableOpacity
-                      onPress={() =>
-                        logic.handleSeeMessage(item.unseen_message_id)
-                      }
+                      onPress={() => logic.handleSeeMessage(item.unseen_message_id)}
                     >
                       <Ionicons
                         name="mail-unread-outline"
@@ -52,24 +40,13 @@ export default function Modals({ logic }) {
                     <Text style={styles.userName}>{item.username}</Text>
                   </View>
 
-                  <View
-                    style={{
-                      flexDirection: "row",
-                      alignItems: "center",
-                      gap: 6,
-                    }}
-                  >
+                  <View style={{ flexDirection: "row", alignItems: "center", gap: 6 }}>
                     <View style={{ minWidth: 70 }}>
                       {item.last_heartbeat && (
                         <Text style={{ color: "red", fontSize: 12 }}>
                           {item.last_heartbeat}
                         </Text>
                       )}
-                      {/* <FontAwesome
-                        name={item.heartbeat ? "heart" : "heart-o"} // filled vs outlined
-                        size={24}
-                        color={item.heartbeat ? "red" : "#aaa"}
-                      /> */}
                     </View>
                     <View style={styles.heartWrapper}>
                       <Image
@@ -86,23 +63,16 @@ export default function Modals({ logic }) {
                 </View>
               )}
             />
-            <Button
-              title="Close"
-              onPress={() => logic.setShowFollowingList(false)}
-            />
+            <Button title="بستن" onPress={() => logic.setShowFollowingList(false)} />
           </View>
         </View>
       </Modal>
 
-      {/* Followers List */}
-      <Modal
-        visible={logic.showFollowersList}
-        animationType="slide"
-        transparent
-      >
+      {/* لیست دنبال‌کننده‌ها */}
+      <Modal visible={logic.showFollowersList} animationType="slide" transparent>
         <View style={styles.modalOverlay}>
           <View style={styles.modalViewLarge}>
-            <Text style={styles.sectionTitle}>Followers</Text>
+            <Text style={styles.sectionTitle}>ضربان‌هایی که همراهت هستن</Text>
             <FlatList
               style={{ marginBottom: 10 }}
               data={logic.followers}
@@ -125,22 +95,19 @@ export default function Modals({ logic }) {
                 </View>
               )}
             />
-            <Button
-              title="Close"
-              onPress={() => logic.setShowFollowersList(false)}
-            />
+            <Button title="بستن" onPress={() => logic.setShowFollowersList(false)} />
           </View>
         </View>
       </Modal>
 
-      {/* Follow Modal */}
+      {/* مودال دنبال‌کردن */}
       <Modal visible={logic.showFollowModal} animationType="slide" transparent>
         <View style={styles.modalOverlay}>
           <View style={styles.modalView}>
-            <Text style={styles.sectionTitle}>Find and Follow a Friend</Text>
+            <Text style={styles.sectionTitle}>یافتن و دنبال‌کردن ضربان جدید</Text>
             <TextInput
               style={styles.input}
-              placeholder="Enter username"
+              placeholder="نام کاربری را وارد کن"
               value={logic.followTarget}
               onChangeText={logic.fetchSuggestions}
             />
@@ -156,13 +123,11 @@ export default function Modals({ logic }) {
                 <Text>{user.username}</Text>
               </TouchableOpacity>
             ))}
-            {logic.error ? (
-              <Text style={styles.error}>{logic.error}</Text>
-            ) : null}
+            {logic.error ? <Text style={styles.error}>{logic.error}</Text> : null}
             <View style={styles.modalButtons}>
-              <Button title="Follow" onPress={logic.handleFollow} />
+              <Button title="دنبالش کن" onPress={logic.handleFollow} />
               <Button
-                title="Cancel"
+                title="انصراف"
                 color="#aaa"
                 onPress={() => {
                   logic.setShowFollowModal(false);
@@ -175,21 +140,17 @@ export default function Modals({ logic }) {
         </View>
       </Modal>
 
-      {/* Send Message */}
-      <Modal
-        visible={logic.messageModalVisible}
-        animationType="slide"
-        transparent
-      >
+      {/* مودال ارسال پیام */}
+      <Modal visible={logic.messageModalVisible} animationType="slide" transparent>
         <View style={styles.modalOverlay}>
           <View style={styles.modalView}>
             <Text style={styles.sectionTitle}>
-              Send a message to {logic.selectedFollower?.username}
+              پیام به {logic.selectedFollower?.username}
             </Text>
             <TextInput
               style={[styles.input, { height: 80, textAlignVertical: "top" }]}
               multiline
-              placeholder="Type your message..."
+              placeholder="متن پیام را بنویس..."
               value={logic.messageContent}
               onChangeText={logic.setMessageContent}
               maxLength={100}
@@ -198,9 +159,9 @@ export default function Modals({ logic }) {
               <Text style={styles.error}>{logic.messageError}</Text>
             ) : null}
             <View style={styles.modalButtons}>
-              <Button title="Send" onPress={logic.handleSendMessage} />
+              <Button title="ارسال" onPress={logic.handleSendMessage} />
               <Button
-                title="Cancel"
+                title="انصراف"
                 color="#aaa"
                 onPress={() => {
                   logic.setMessageModalVisible(false);
@@ -213,25 +174,21 @@ export default function Modals({ logic }) {
         </View>
       </Modal>
 
-      {/* Seen Message */}
-      <Modal
-        visible={logic.showIncomingMessageModal}
-        animationType="slide"
-        transparent
-      >
+      {/* پیام دریافتی */}
+      <Modal visible={logic.showIncomingMessageModal} animationType="slide" transparent>
         <View style={styles.modalOverlay}>
           <View style={styles.modalView}>
             <Text style={styles.sectionTitle}>
-              Message from {logic.incomingMessageContent.sender_username}
+              پیام از طرف {logic.incomingMessageContent.sender_username}
             </Text>
             <Text style={styles.subtitle}>
-              Sent: {logic.incomingMessageContent.sent_at}
+              زمان ارسال: {logic.incomingMessageContent.sent_at}
             </Text>
             <Text style={{ fontSize: 16, marginVertical: 20 }}>
               {logic.incomingMessageContent.content}
             </Text>
             <Button
-              title="Close"
+              title="بستن"
               onPress={() => logic.setShowIncomingMessageModal(false)}
             />
           </View>
