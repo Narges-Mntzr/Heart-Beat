@@ -72,7 +72,7 @@ export default function Modals({ logic }) {
       <Modal visible={logic.showFollowersList} animationType="slide" transparent>
         <View style={styles.modalOverlay}>
           <View style={styles.modalViewLarge}>
-            <Text style={styles.sectionTitle}>ضربان‌هایی که همراهت هستن</Text>
+            <Text style={styles.sectionTitle}>کسانی که ضربان‌های تو را دنبال می‌کنند</Text>
             <FlatList
               style={{ marginBottom: 10 }}
               data={logic.followers}

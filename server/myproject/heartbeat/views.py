@@ -6,7 +6,7 @@ from rest_framework import status
 from rest_framework.decorators import api_view
 from rest_framework.response import Response
 from .models import User, Follow, HeartbeatLog, Message
-from .services import get_time_ago_str,to_jalali
+from .services import get_time_ago_str, to_jalali
 from datetime import timedelta
 import logging
 import re

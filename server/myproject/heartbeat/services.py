@@ -23,6 +23,7 @@ def get_time_ago_str(dt):
 
     return time_ago_str
 
+
 def en_to_fa_digits(text):
     en_to_fa = str.maketrans("0123456789", "۰۱۲۳۴۵۶۷۸۹")
     return str(text).translate(en_to_fa)
@@ -31,5 +32,7 @@ def en_to_fa_digits(text):
 def to_jalali(datetime_obj):
     if datetime_obj is None:
         return "-"
-    jalali_str = jdatetime.datetime.fromgregorian(datetime=datetime_obj).strftime('%Y/%m/%d')
+    jalali_str = jdatetime.datetime.fromgregorian(datetime=datetime_obj).strftime(
+        "%Y/%m/%d"
+    )
     return en_to_fa_digits(jalali_str)

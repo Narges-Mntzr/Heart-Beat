@@ -8,7 +8,7 @@ const SHARE_MESSAGE = `سلام! من با نام کاربری «__USERNAME__» 
 
 اگه تو هم دوست داری توی این حس خوب شریک باشی، همین حالا نصبش کن👇
 
-📲 لینک نصب: https://your-app-link.com`;
+📲 لینک نصب: https://github.com/Narges-Mntzr/Heart-Beat/releases`;
 
 
 export default {
