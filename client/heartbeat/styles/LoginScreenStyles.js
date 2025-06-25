@@ -7,11 +7,6 @@ const styles = StyleSheet.create({
     justifyContent: "center",
     padding: 20,
   },
-  heartEmoji: {
-    fontSize: 28,
-    marginRight: 10,
-    marginBottom: 40,
-  },
   title: {
     fontSize: 45,
     marginBottom: 40,
@@ -29,9 +24,9 @@ const styles = StyleSheet.create({
   },
   error: {
     color: "red",
-    fontSize: 15,
-    fontFamily:"Shabnam",
-    marginBottom: 10,
+    fontSize: 14,
+    marginBottom: 8,
+    fontFamily: "Shabnam",
   },
   buttonRow: {
     flexDirection: "row",
