@@ -5,18 +5,24 @@ FROM python:3.11-slim
 ENV PYTHONDONTWRITEBYTECODE 1
 ENV PYTHONUNBUFFERED 1
 
-# Set work directory
+# Set working directory
 WORKDIR /app
 
-# Install dependencies
-COPY server/myproject/requirements.txt ./requirements.txt
-RUN pip install --upgrade pip && pip install -r requirements.txt
+# Install system dependencies
+RUN apt-get update && apt-get install -y \
+    build-essential \
+    libpq-dev \
+    && rm -rf /var/lib/apt/lists/*
 
-# Copy project
-COPY server/myproject/ .
+# Install Python dependencies
+COPY server/myproject/requirements.txt .
+RUN pip install --upgrade pip
+RUN pip install -r requirements.txt
 
-# Expose port
-EXPOSE 8000
+# Copy project files
+COPY server/myproject .
+
+RUN mkdir -p /db && chmod 777 /db
 
 # Collect static files (optional, if you use static files)
 RUN python manage.py collectstatic --noinput
