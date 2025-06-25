@@ -48,7 +48,7 @@ def login_user(request):
     password = request.data.get("password")
 
     try:
-        user = User.objects.get(username__iexact=username,is_superuser=False)
+        user = User.objects.get(username__iexact=username, is_superuser=False)
         if user.password != password:
             return Response({"error": _("Invalid password.")}, status=401)
         return Response({"user_id": user.id}, status=200)
@@ -116,7 +116,7 @@ def list_following(request, user_id):
                 "heartbeat": bool(last_heartbeat_str),
                 "last_heartbeat": last_heartbeat_str,
                 "message_id": message.id if message else None,
-                "unseen_message": not message.seen if message else None
+                "unseen_message": not message.seen if message else None,
             }
         )
 
@@ -179,7 +179,9 @@ def search_users(request):
     if not query:
         return Response([])
 
-    matches = User.objects.filter(Q(username__icontains=query) & ~Q(id=user_id) & Q(is_superuser=False))[:5]
+    matches = User.objects.filter(
+        Q(username__icontains=query) & ~Q(id=user_id) & Q(is_superuser=False)
+    )[:5]
 
     results = [{"username": u.username} for u in matches]
     return Response(results)
