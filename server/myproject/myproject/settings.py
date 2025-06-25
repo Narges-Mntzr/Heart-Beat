@@ -23,7 +23,7 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 SECRET_KEY = "django-insecure-h(0k4hi1zfh(4!0$b&(nj(^29o881)^$w74yigrwt2%_9fo-ev"
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = True
+DEBUG = False
 
 ALLOWED_HOSTS = [
     "heartbeat.darkube.app",
@@ -32,6 +32,11 @@ ALLOWED_HOSTS = [
     "192.168.1.*",
      "172.20.10.*",
 ]
+
+CSRF_TRUSTED_ORIGINS = [
+    "https://heartbeat.darkube.app"
+]
+
 
 # Application definition
 

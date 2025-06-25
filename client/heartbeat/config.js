@@ -1,6 +1,6 @@
 // config/config.js
 
-const BASE_URL = "http://192.168.1.104:8000/api";
+const BASE_URL = "https://heartbeat.darkube.app/api";
 const SHARE_MESSAGE = `سلام! من با نام کاربری «__USERNAME__» توی اپلیکیشن Heartbeat  هستم.
 
 توی این برنامه، می‌تونیم با ضربان قلب مجازی به همدیگه یادآوری کنیم که تنها نیستیم. 
