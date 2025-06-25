@@ -22,6 +22,8 @@ RUN pip install -r requirements.txt
 # Copy project files
 COPY server/myproject .
 
+RUN mkdir -p /db && chmod 777 /db
+
 # Collect static files (optional, if you use static files)
 RUN python manage.py collectstatic --noinput
 
