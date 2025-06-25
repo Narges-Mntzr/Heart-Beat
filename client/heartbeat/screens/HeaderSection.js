@@ -1,5 +1,5 @@
 import React from "react";
-import { View, Text, Button } from "react-native";
+import { View, Text, Button, TouchableOpacity } from "react-native";
 import styles from "../styles/HomeScreenStyles";
 
 export default function HeaderSection({ logic }) {
@@ -12,14 +12,21 @@ export default function HeaderSection({ logic }) {
         </Text>
       </View>
       <View>
-        <Button title="🚪 خروج" onPress={logic.handleLogout} color="#d9534f" />
-        <View style={{ marginTop: 10 }}>
-          <Button
-            title="📤 اشتراک‌گذاری "
-            onPress={logic.handleShare}
-            color="#5cb85c"
-          />
-        </View>
+        <TouchableOpacity
+          style={[styles.modalButtons, { backgroundColor: "#d9534f" }]}
+          onPress={logic.handleLogout}
+        >
+          <Text style={styles.modalButtonsText}>🚪 خروج</Text>
+        </TouchableOpacity>
+        <TouchableOpacity
+          style={[
+            styles.modalButtons,
+            { backgroundColor: "#5cb85c", marginTop: 5 },
+          ]}
+          onPress={logic.handleShare}
+        >
+          <Text style={styles.modalButtonsText}>📤 اشتراک‌گذاری </Text>
+        </TouchableOpacity>
       </View>
     </View>
   );

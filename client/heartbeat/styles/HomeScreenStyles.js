@@ -10,9 +10,9 @@ const styles = StyleSheet.create({
   },
   addFriendText: {
     color: "#0f9df5",
-    fontSize: 14,
+    fontSize: 12,
     fontFamily: "ShabnamBold",
-    textAlign:"center"
+    textAlign: "center",
   },
   container: {
     flex: 1,
@@ -25,7 +25,7 @@ const styles = StyleSheet.create({
     fontSize: 14,
     marginBottom: 8,
     fontFamily: "Shabnam",
-    textAlign:"right",
+    textAlign: "right",
   },
   headerRow: {
     alignItems: "center",
@@ -48,19 +48,6 @@ const styles = StyleSheet.create({
     fontSize: 20,
     marginRight: 6,
   },
-  heartbeatButton: {
-    alignItems: "center",
-    backgroundColor: "#0f9df5",
-    borderRadius: 10,
-    marginVertical: 15,
-    paddingVertical: 12,
-    paddingHorizontal: 20,
-  },
-  heartbeatText: {
-    color: "white",
-    fontSize: 16,
-    fontFamily: "ShabnamBold",
-  },
   heartStatus: {
     fontSize: 30,
     lineHeight: 32,
@@ -73,23 +60,44 @@ const styles = StyleSheet.create({
     padding: 10,
     fontFamily: "Shabnam",
     marginBottom: 12,
-    color: "black"
-  },
-  loginButton: {
-    backgroundColor: "#007bff",
-    paddingVertical: 10,
-    paddingHorizontal: 8,
-    borderRadius: 8,
-  },
-  loginButtonText: {
-    color: "white",
-    fontSize: 13,
-    fontFamily:"ShabnamBold",
+    color: "black",
   },
   modalButtons: {
+    backgroundColor: "#007bff",
+    borderRadius: 8,
+    paddingVertical: 10,
+    paddingHorizontal: 8,
+    minWidth: 90,
+  },
+  modalButtonsText: {
+    color: "white",
+    fontSize: 13,
+    fontFamily: "ShabnamBold",
+    textAlign: "center",
+  },
+  modalViewButtons: {
     flexDirection: "row",
     justifyContent: "space-between",
     marginTop: 15,
+  },
+  largeModalButtons: {
+    alignItems: "center",
+    backgroundColor: "#0f9df5",
+    borderRadius: 10,
+    marginVertical: 15,
+    paddingVertical: 10,
+    paddingHorizontal: 20,
+  },
+  largeModalButtonsText: {
+    color: "white",
+    fontSize: 16,
+    fontFamily: "ShabnamBold",
+  },
+  messageText: {
+    fontSize: 16,
+    marginVertical: 20,
+    fontFamily: "Shabnam",
+    textAlign: "right",
   },
   modalOverlay: {
     flex: 1,
@@ -111,10 +119,10 @@ const styles = StyleSheet.create({
     padding: 20,
   },
   sectionTitle: {
-    fontSize: 20,
-    fontWeight: "600",
+    fontSize: 16,
+    fontFamily: "ShabnamBold",
     marginBottom: 18,
-    textAlign:"right"
+    textAlign: "right",
   },
   separator: {
     alignSelf: "stretch",
@@ -132,7 +140,8 @@ const styles = StyleSheet.create({
   },
   statLabel: {
     color: "#555",
-    fontSize: 14,
+    fontSize: 12,
+    fontFamily: "Shabnam",
   },
   statNumber: {
     fontSize: 20,
@@ -147,7 +156,15 @@ const styles = StyleSheet.create({
   },
   subtitle: {
     color: "gray",
+    fontFamily: "Shabnam",
     fontSize: 14,
+  },
+  subtitleMessage: {
+    color: "gray",
+    fontFamily: "Shabnam",
+    fontSize: 14,
+    textAlign: "right",
+    marginTop: -10,
   },
   suggestionItem: {
     paddingVertical: 8,

@@ -48,7 +48,7 @@ export default function MainContent({ logic }) {
         </TouchableOpacity>
       </View>
 
-      <TouchableOpacity style={styles.heartbeatButton} onPress={logic.sendHeartbeat}>
+      <TouchableOpacity style={styles.largeModalButtons} onPress={logic.sendHeartbeat}>
         <View style={{ flexDirection: "row", alignItems: "center" }}>
           <Animated.Text
             style={[
@@ -58,7 +58,7 @@ export default function MainContent({ logic }) {
           >
             ❤️
           </Animated.Text>
-          <Text style={styles.heartbeatText}>
+          <Text style={styles.largeModalButtonsText}>
             {logic.userInfo?.last_heartbeat
               ? `آخرین تپش: ${logic.userInfo.last_heartbeat}`
               : "ارسال ضربان"}

@@ -61,7 +61,13 @@ export default function Modals({ logic }) {
                   >
                     <View style={{ minWidth: 70 }}>
                       {item.last_heartbeat && (
-                        <Text style={{ color: "red", fontSize: 12 }}>
+                        <Text
+                          style={{
+                            color: "red",
+                            fontSize: 11,
+                            fontFamily: "Shabnam",
+                          }}
+                        >
                           {item.last_heartbeat}
                         </Text>
                       )}
@@ -81,10 +87,12 @@ export default function Modals({ logic }) {
                 </View>
               )}
             />
-            <Button
-              title="بستن"
+            <TouchableOpacity
               onPress={() => logic.setShowFollowingList(false)}
-            />
+              style={styles.largeModalButtons}
+            >
+              <Text style={styles.largeModalButtonsText}>بستن</Text>
+            </TouchableOpacity>
           </View>
         </View>
       </Modal>
@@ -122,10 +130,12 @@ export default function Modals({ logic }) {
                 </View>
               )}
             />
-            <Button
-              title="بستن"
+            <TouchableOpacity
               onPress={() => logic.setShowFollowersList(false)}
-            />
+              style={styles.largeModalButtons}
+            >
+              <Text style={styles.largeModalButtonsText}>بستن</Text>
+            </TouchableOpacity>
           </View>
         </View>
       </Modal>
@@ -158,22 +168,22 @@ export default function Modals({ logic }) {
             {logic.error ? (
               <Text style={styles.error}>{logic.error}</Text>
             ) : null}
-            <View style={styles.modalButtons}>
+            <View style={styles.modalViewButtons}>
               <TouchableOpacity
-                style={styles.loginButton}
+                style={styles.modalButtons}
                 onPress={logic.handleFollow}
               >
-                <Text style={styles.loginButtonText}>دنبالش کن </Text>
+                <Text style={styles.modalButtonsText}>دنبالش کن </Text>
               </TouchableOpacity>
               <TouchableOpacity
-                style={[styles.loginButton, { backgroundColor: "#aaa" }]}
+                style={[styles.modalButtons, { backgroundColor: "#aaa" }]}
                 onPress={() => {
                   logic.setShowFollowModal(false);
                   logic.setError("");
                   logic.setFollowTarget("");
                 }}
               >
-                <Text style={styles.loginButtonText}>انصراف </Text>
+                <Text style={styles.modalButtonsText}>انصراف </Text>
               </TouchableOpacity>
             </View>
           </View>
@@ -202,17 +212,23 @@ export default function Modals({ logic }) {
             {logic.messageError ? (
               <Text style={styles.error}>{logic.messageError}</Text>
             ) : null}
-            <View style={styles.modalButtons}>
-              <Button title="ارسال" onPress={logic.handleSendMessage} />
-              <Button
-                title="انصراف"
-                color="#aaa"
+            <View style={styles.modalViewButtons}>
+              <TouchableOpacity
+                style={styles.modalButtons}
+                onPress={logic.handleSendMessage}
+              >
+                <Text style={styles.modalButtonsText}>ارسال </Text>
+              </TouchableOpacity>
+              <TouchableOpacity
+                style={[styles.modalButtons, { backgroundColor: "#aaa" }]}
                 onPress={() => {
                   logic.setMessageModalVisible(false);
                   logic.setMessageError("");
                   logic.setMessageContent("");
                 }}
-              />
+              >
+                <Text style={styles.modalButtonsText}>انصراف </Text>
+              </TouchableOpacity>
             </View>
           </View>
         </View>
@@ -229,16 +245,18 @@ export default function Modals({ logic }) {
             <Text style={styles.sectionTitle}>
               پیام از طرف {logic.incomingMessageContent.sender_username}
             </Text>
-            <Text style={styles.subtitle}>
+            <Text style={styles.subtitleMessage}>
               زمان ارسال: {logic.incomingMessageContent.sent_at}
             </Text>
-            <Text style={{ fontSize: 16, marginVertical: 20 }}>
+            <Text style={styles.messageText}>
               {logic.incomingMessageContent.content}
             </Text>
-            <Button
-              title="بستن"
+            <TouchableOpacity
               onPress={() => logic.setShowIncomingMessageModal(false)}
-            />
+              style={styles.largeModalButtons}
+            >
+              <Text style={styles.largeModalButtonsText}>بستن</Text>
+            </TouchableOpacity>
           </View>
         </View>
       </Modal>
