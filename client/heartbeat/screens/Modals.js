@@ -6,7 +6,6 @@ import {
   Modal,
   FlatList,
   TouchableOpacity,
-  Button,
   TextInput,
 } from "react-native";
 import { Ionicons } from "@expo/vector-icons";
@@ -38,14 +37,16 @@ export default function Modals({ logic }) {
                     }}
                   >
                     <TouchableOpacity
-                      onPress={() =>
-                        logic.handleSeeMessage(item.unseen_message_id)
-                      }
+                      onPress={() => logic.handleSeeMessage(item.message_id)}
                     >
                       <Ionicons
-                        name="mail-unread-outline"
+                        name={
+                          item.message_id && item.unseen_message
+                            ? "mail-unread-outline"
+                            : "mail-outline"
+                        }
                         size={24}
-                        color={item.unseen_message_id ? "#e67e22" : "#d6d3d0"}
+                        color={item.message_id ? "#e67e22" : "#d6d3d0"}
                         style={{ marginRight: 4 }}
                       />
                     </TouchableOpacity>

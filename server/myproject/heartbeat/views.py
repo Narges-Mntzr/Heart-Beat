@@ -104,19 +104,19 @@ def list_following(request, user_id):
             get_time_ago_str(latest_heartbeat.date) if latest_heartbeat else None
         )
 
-        unseen_messages = Message.objects.filter(
-            sender=target, receiver=user, seen=False
+        messages = Message.objects.filter(
+            sender=target, receiver=user, date__gte=today_start, date__lt=today_end
         ).order_by("sent_at")
 
-        has_unseen_message = unseen_messages.exists()
-        unseen_message_id = unseen_messages.first().id if has_unseen_message else None
+        message = messages.first() if messages.exists() else None
 
         data.append(
             {
                 "username": target.username,
                 "heartbeat": bool(last_heartbeat_str),
                 "last_heartbeat": last_heartbeat_str,
-                "unseen_message_id": unseen_message_id,
+                "message_id": message.id if message else None,
+                "unseen_message": not message.seen if message else None
             }
         )
 

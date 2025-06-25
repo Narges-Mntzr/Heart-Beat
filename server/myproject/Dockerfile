@@ -22,5 +22,8 @@ RUN pip install -r requirements.txt
 # Copy project files
 COPY server/myproject .
 
+# Collect static files (optional, if you use static files)
+RUN python manage.py collectstatic --noinput
+
 # Run migrations and start server
 CMD ["sh", "-c", "python manage.py migrate && python manage.py runserver 0.0.0.0:8000"]
