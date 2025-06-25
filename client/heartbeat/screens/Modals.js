@@ -16,7 +16,11 @@ export default function Modals({ logic }) {
   return (
     <>
       {/* لیست دنبال‌شده‌ها */}
-      <Modal visible={logic.showFollowingList} animationType="slide" transparent>
+      <Modal
+        visible={logic.showFollowingList}
+        animationType="slide"
+        transparent
+      >
         <View style={styles.modalOverlay}>
           <View style={styles.modalViewLarge}>
             <Text style={styles.sectionTitle}>ضربان‌هایی که دنبال می‌کنی</Text>
@@ -26,9 +30,17 @@ export default function Modals({ logic }) {
               keyExtractor={(item) => item.username}
               renderItem={({ item }) => (
                 <View style={styles.userRow}>
-                  <View style={{ flexDirection: "row", alignItems: "center", gap: 4 }}>
+                  <View
+                    style={{
+                      flexDirection: "row",
+                      alignItems: "center",
+                      gap: 4,
+                    }}
+                  >
                     <TouchableOpacity
-                      onPress={() => logic.handleSeeMessage(item.unseen_message_id)}
+                      onPress={() =>
+                        logic.handleSeeMessage(item.unseen_message_id)
+                      }
                     >
                       <Ionicons
                         name="mail-unread-outline"
@@ -40,7 +52,13 @@ export default function Modals({ logic }) {
                     <Text style={styles.userName}>{item.username}</Text>
                   </View>
 
-                  <View style={{ flexDirection: "row", alignItems: "center", gap: 6 }}>
+                  <View
+                    style={{
+                      flexDirection: "row",
+                      alignItems: "center",
+                      gap: 6,
+                    }}
+                  >
                     <View style={{ minWidth: 70 }}>
                       {item.last_heartbeat && (
                         <Text style={{ color: "red", fontSize: 12 }}>
@@ -63,16 +81,25 @@ export default function Modals({ logic }) {
                 </View>
               )}
             />
-            <Button title="بستن" onPress={() => logic.setShowFollowingList(false)} />
+            <Button
+              title="بستن"
+              onPress={() => logic.setShowFollowingList(false)}
+            />
           </View>
         </View>
       </Modal>
 
       {/* لیست دنبال‌کننده‌ها */}
-      <Modal visible={logic.showFollowersList} animationType="slide" transparent>
+      <Modal
+        visible={logic.showFollowersList}
+        animationType="slide"
+        transparent
+      >
         <View style={styles.modalOverlay}>
           <View style={styles.modalViewLarge}>
-            <Text style={styles.sectionTitle}>کسانی که ضربان‌های تو را دنبال می‌کنند</Text>
+            <Text style={styles.sectionTitle}>
+              کسانی که ضربان‌های تو را دنبال می‌کنند
+            </Text>
             <FlatList
               style={{ marginBottom: 10 }}
               data={logic.followers}
@@ -95,7 +122,10 @@ export default function Modals({ logic }) {
                 </View>
               )}
             />
-            <Button title="بستن" onPress={() => logic.setShowFollowersList(false)} />
+            <Button
+              title="بستن"
+              onPress={() => logic.setShowFollowersList(false)}
+            />
           </View>
         </View>
       </Modal>
@@ -104,10 +134,12 @@ export default function Modals({ logic }) {
       <Modal visible={logic.showFollowModal} animationType="slide" transparent>
         <View style={styles.modalOverlay}>
           <View style={styles.modalView}>
-            <Text style={styles.sectionTitle}>یافتن و دنبال‌کردن ضربان جدید</Text>
+            <Text style={styles.sectionTitle}>
+              یافتن و دنبال‌کردن ضربان جدید
+            </Text>
             <TextInput
               style={styles.input}
-              placeholder="نام کاربری را وارد کن"
+              placeholder="نام کاربری را وارد کنید."
               value={logic.followTarget}
               onChangeText={logic.fetchSuggestions}
             />
@@ -123,25 +155,37 @@ export default function Modals({ logic }) {
                 <Text>{user.username}</Text>
               </TouchableOpacity>
             ))}
-            {logic.error ? <Text style={styles.error}>{logic.error}</Text> : null}
+            {logic.error ? (
+              <Text style={styles.error}>{logic.error}</Text>
+            ) : null}
             <View style={styles.modalButtons}>
-              <Button title="دنبالش کن" onPress={logic.handleFollow} />
-              <Button
-                title="انصراف"
-                color="#aaa"
+              <TouchableOpacity
+                style={styles.loginButton}
+                onPress={logic.handleFollow}
+              >
+                <Text style={styles.loginButtonText}>دنبالش کن </Text>
+              </TouchableOpacity>
+              <TouchableOpacity
+                style={[styles.loginButton, { backgroundColor: "#aaa" }]}
                 onPress={() => {
                   logic.setShowFollowModal(false);
                   logic.setError("");
                   logic.setFollowTarget("");
                 }}
-              />
+              >
+                <Text style={styles.loginButtonText}>انصراف </Text>
+              </TouchableOpacity>
             </View>
           </View>
         </View>
       </Modal>
 
       {/* مودال ارسال پیام */}
-      <Modal visible={logic.messageModalVisible} animationType="slide" transparent>
+      <Modal
+        visible={logic.messageModalVisible}
+        animationType="slide"
+        transparent
+      >
         <View style={styles.modalOverlay}>
           <View style={styles.modalView}>
             <Text style={styles.sectionTitle}>
@@ -175,7 +219,11 @@ export default function Modals({ logic }) {
       </Modal>
 
       {/* پیام دریافتی */}
-      <Modal visible={logic.showIncomingMessageModal} animationType="slide" transparent>
+      <Modal
+        visible={logic.showIncomingMessageModal}
+        animationType="slide"
+        transparent
+      >
         <View style={styles.modalOverlay}>
           <View style={styles.modalView}>
             <Text style={styles.sectionTitle}>

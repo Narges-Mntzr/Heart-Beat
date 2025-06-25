@@ -30,8 +30,8 @@ ALLOWED_HOSTS = [
     "heartbeat.darkube.app",
     "localhost",
     "127.0.0.1",
-    "192.168.1.*",
-    "172.20.10.*",
+    "192.168.1.104",
+    "172.20.10.5",
 ]
 
 CSRF_TRUSTED_ORIGINS = ["https://heartbeat.darkube.app"]

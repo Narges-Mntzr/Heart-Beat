@@ -70,13 +70,7 @@ export default function LoginScreen({ navigation, setUserId }) {
           justifyContent: "center",
         }}
       >
-        <Animated.Text
-          style={[styles.heartEmoji, { opacity: fadeAnim }]}
-        >
-          ❤️
-        </Animated.Text>
         <Text style={styles.title}>ضربان</Text>
-        
       </View>
 
       <TextInput
@@ -98,7 +92,7 @@ export default function LoginScreen({ navigation, setUserId }) {
       {error ? <Text style={styles.error}>{error}</Text> : null}
 
       <View style={styles.buttonRow}>
-      <TouchableOpacity style={styles.loginButton} onPress={handleRegister}>
+        <TouchableOpacity style={styles.loginButton} onPress={handleRegister}>
           <Text style={styles.loginButtonText}>ثبت‌نام </Text>
         </TouchableOpacity>
 

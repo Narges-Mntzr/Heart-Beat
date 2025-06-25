@@ -10,8 +10,9 @@ const styles = StyleSheet.create({
   },
   addFriendText: {
     color: "#0f9df5",
-    fontSize: 16,
-    fontWeight: "bold",
+    fontSize: 14,
+    fontFamily: "ShabnamBold",
+    textAlign:"center"
   },
   container: {
     flex: 1,
@@ -23,6 +24,8 @@ const styles = StyleSheet.create({
     color: "red",
     fontSize: 14,
     marginBottom: 8,
+    fontFamily: "Shabnam",
+    textAlign:"right",
   },
   headerRow: {
     alignItems: "center",
@@ -56,7 +59,7 @@ const styles = StyleSheet.create({
   heartbeatText: {
     color: "white",
     fontSize: 16,
-    fontWeight: "bold",
+    fontFamily: "ShabnamBold",
   },
   heartStatus: {
     fontSize: 30,
@@ -68,8 +71,20 @@ const styles = StyleSheet.create({
     borderColor: "#ccc",
     borderRadius: 5,
     padding: 10,
+    fontFamily: "Shabnam",
     marginBottom: 12,
     color: "black"
+  },
+  loginButton: {
+    backgroundColor: "#007bff",
+    paddingVertical: 10,
+    paddingHorizontal: 8,
+    borderRadius: 8,
+  },
+  loginButtonText: {
+    color: "white",
+    fontSize: 13,
+    fontFamily:"ShabnamBold",
   },
   modalButtons: {
     flexDirection: "row",

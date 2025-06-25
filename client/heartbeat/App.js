@@ -55,9 +55,7 @@ export default function App() {
           </Stack.Screen>
         ) : (
           <Stack.Screen name="Login">
-            {(props) => (
-              <LoginScreen {...props} setUserId={handleSetUserId} />
-            )}
+            {(props) => <LoginScreen {...props} setUserId={handleSetUserId} />}
           </Stack.Screen>
         )}
       </Stack.Navigator>

@@ -13,11 +13,10 @@ const styles = StyleSheet.create({
     marginBottom: 40,
   },
   title: {
-    fontSize: 42,
-    fontWeight: "bold",
+    fontSize: 45,
     marginBottom: 40,
     color: "#0f9df5",
-    fontFamily:"Shabnam"
+    fontFamily:"ShabnamBold"
   },
   input: {
     borderColor: "#aaa",
@@ -26,10 +25,12 @@ const styles = StyleSheet.create({
     marginBottom: 15,
     padding: 10,
     width: "80%",
+    fontFamily:"Shabnam",
   },
   error: {
     color: "red",
-    fontSize: 18,
+    fontSize: 15,
+    fontFamily:"Shabnam",
     marginBottom: 10,
   },
   buttonRow: {
@@ -40,7 +41,7 @@ const styles = StyleSheet.create({
   },
   loginButton: {
     backgroundColor: "#007bff",
-    paddingVertical: 14,
+    paddingVertical: 10,
     borderRadius: 8,
     width: "48%",
     alignItems: "center",
@@ -48,7 +49,7 @@ const styles = StyleSheet.create({
   loginButtonText: {
     color: "white",
     fontSize: 16,
-    fontWeight: "bold",
+    fontFamily:"ShabnamBold",
   },
 });
 
