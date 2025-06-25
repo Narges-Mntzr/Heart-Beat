@@ -25,10 +25,13 @@ SECRET_KEY = "django-insecure-h(0k4hi1zfh(4!0$b&(nj(^29o881)^$w74yigrwt2%_9fo-ev
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-# ALLOWED_HOSTS = []
-# ALLOWED_HOSTS = ['*']
-ALLOWED_HOSTS = ["192.168.1.104", "localhost", "127.0.0.1", "172.20.10.5"]
-
+ALLOWED_HOSTS = [
+    "heartbeat.darkube.app",
+    "localhost",
+    "127.0.0.1",
+    "192.168.1.*",
+     "172.20.10.*",
+]
 
 # Application definition
 
