@@ -36,7 +36,14 @@ jobs:
           node-version: 18
 
       - name: Install EAS CLI
-        run: npm install -g eas-cli
+        run: |
+          cd client/heartbeat
+          npm install -g eas-cli
+
+      - name: Install dependencies
+        run: |
+          cd client/heartbeat
+          npm install
 
       - name: Run EAS Build
         env:
