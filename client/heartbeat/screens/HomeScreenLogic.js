@@ -55,7 +55,9 @@ export default function useHomeScreenLogic({ userId, setUserId }) {
       setShowFollowModal(false);
       fetchData();
     } catch (err) {
-      setError(err.response?.data?.error || "روند دنبال کردن دوست به مشکل خورده است.");
+      setError(
+        err.response?.data?.error || "روند دنبال کردن دوست به مشکل خورده است."
+      );
     }
   };
 
@@ -82,7 +84,9 @@ export default function useHomeScreenLogic({ userId, setUserId }) {
       setSelectedFollower(null);
       setMessageError("");
     } catch (err) {
-      setMessageError(err.response?.data?.error || "ارسال پیام به مشکل خورده است.");
+      setMessageError(
+        err.response?.data?.error || "ارسال پیام به مشکل خورده است."
+      );
     }
   };
 
@@ -110,6 +114,7 @@ export default function useHomeScreenLogic({ userId, setUserId }) {
       const res = await axios.get(`${BASE_URL}/seen-message/${messageId}/`);
       setIncomingMessageContent(res.data);
       setShowIncomingMessageModal(true);
+      setShowFollowingList(false);
       fetchData();
     } catch (err) {
       alert("دریافت پیام به مشکل خورده است.");

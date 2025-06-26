@@ -22,7 +22,7 @@ export default function Modals({ logic }) {
       {/* لیست دنبال‌شده‌ها */}
       <Modal
         visible={logic.showFollowingList}
-        animationType="slide"
+        animationType="none"
         transparent
       >
         <View style={styles.modalOverlay}>
@@ -43,6 +43,7 @@ export default function Modals({ logic }) {
                   >
                     <TouchableOpacity
                       onPress={() => logic.handleSeeMessage(item.message_id)}
+                      disabled={!item.message_id}
                     >
                       <Ionicons
                         name={
@@ -106,7 +107,7 @@ export default function Modals({ logic }) {
       {/* لیست دنبال‌کننده‌ها */}
       <Modal
         visible={logic.showFollowersList}
-        animationType="slide"
+        animationType="none"
         transparent
       >
         <View style={styles.modalOverlay}>
@@ -125,6 +126,7 @@ export default function Modals({ logic }) {
                     onPress={() => {
                       logic.setSelectedFollower(item);
                       logic.setMessageModalVisible(true);
+                      logic.setShowFollowersList(false);
                     }}
                   >
                     <Ionicons
@@ -137,7 +139,7 @@ export default function Modals({ logic }) {
               )}
             />
             <TouchableOpacity
-              onPress={() => logic.setShowFollowersList(false)}
+              onPress={() => { logic.setShowFollowersList(true); logic.setShowFollowersList(false); }}
               style={styles.largeModalButtons}
             >
               <Text style={styles.largeModalButtonsText}>بستن</Text>
@@ -147,7 +149,7 @@ export default function Modals({ logic }) {
       </Modal>
 
       {/* مودال دنبال‌کردن */}
-      <Modal visible={logic.showFollowModal} animationType="slide" transparent>
+      <Modal visible={logic.showFollowModal} animationType="none" transparent>
         <View style={styles.modalOverlay}>
           <View style={styles.modalView}>
             <Text style={styles.sectionTitle}>
@@ -199,7 +201,7 @@ export default function Modals({ logic }) {
       {/* مودال ارسال پیام */}
       <Modal
         visible={logic.messageModalVisible}
-        animationType="slide"
+        animationType="none"
         transparent
       >
         <View style={styles.modalOverlay}>
@@ -243,7 +245,7 @@ export default function Modals({ logic }) {
       {/* پیام دریافتی */}
       <Modal
         visible={logic.showIncomingMessageModal}
-        animationType="slide"
+        animationType="none"
         transparent
       >
         <View style={styles.modalOverlay}>
@@ -258,7 +260,7 @@ export default function Modals({ logic }) {
               {logic.incomingMessageContent.content}
             </Text>
             <TouchableOpacity
-              onPress={() => logic.setShowIncomingMessageModal(false)}
+              onPress={() => { logic.setShowFollowingList(true);logic.setShowIncomingMessageModal(false);  }}
               style={styles.largeModalButtons}
             >
               <Text style={styles.largeModalButtonsText}>بستن</Text>
