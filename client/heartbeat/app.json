@@ -20,13 +20,19 @@
         "foregroundImage": "./assets/icon.png",
         "backgroundColor": "#ffffff"
       },
-      "edgeToEdgeEnabled": true
+      "edgeToEdgeEnabled": true,
+      "package": "com.nargesmntzr.HeartBeat"
     },
     "web": {
       "favicon": "./assets/icon.png"
     },
     "plugins": [
       "expo-font"
-    ]
+    ],
+    "extra": {
+      "eas": {
+        "projectId": "81e48e19-fa44-4f8d-b4cc-5857f9341060"
+      }
+    }
   }
 }

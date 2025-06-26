@@ -1,0 +1,47 @@
+name: EAS Build (Manual Only)
+
+on:
+  workflow_dispatch:
+    inputs:
+      platform:
+        description: "Select platform"
+        required: true
+        default: "android"
+        type: choice
+        options:
+          - android
+          - ios
+      profile:
+        description: "EAS profile to use"
+        required: true
+        default: "production"
+        type: choice
+        options:
+          - development
+          - preview
+          - production
+
+jobs:
+  build:
+    name: Build ${{ github.event.inputs.platform }} (profile: ${{ github.event.inputs.profile }})
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout repo
+        uses: actions/checkout@v3
+
+      - name: Set up Node.js
+        uses: actions/setup-node@v3
+        with:
+          node-version: 18
+
+      - name: Install EAS CLI
+        run: npm install -g eas-cli
+
+      - name: Log in to EAS
+        run: eas whoami || eas login --token ${{ secrets.EAS_TOKEN }}
+
+      - name: Run EAS Build
+        run: |
+          cd client/myproject
+          eas build --platform ${{ github.event.inputs.platform }} --profile ${{ github.event.inputs.profile }} --non-interactive
