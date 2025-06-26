@@ -23,7 +23,7 @@ on:
 
 jobs:
   build:
-    name: Build ${{ github.event.inputs.platform }} (profile: ${{ github.event.inputs.profile }})
+    name: EAS Build Job
     runs-on: ubuntu-latest
 
     steps:
@@ -43,5 +43,7 @@ jobs:
 
       - name: Run EAS Build
         run: |
+          echo "Platform: ${{ github.event.inputs.platform }}"
+          echo "Profile: ${{ github.event.inputs.profile }}"
           cd client/myproject
           eas build --platform ${{ github.event.inputs.platform }} --profile ${{ github.event.inputs.profile }} --non-interactive
