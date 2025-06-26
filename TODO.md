@@ -1,10 +1,7 @@
-[ ] اضافه کردن status
-[ ] اضافه کردن نوتیف
-[ ] ناج کردن افراد - من به فالوینگ هام بتونم بگم حالتون چطوره؟
-[ ] دیپلوی بکند
-[ ] خروجی گرفتن اپ‌هاب
-[ ] هر کس بتونی پروفایل بقیه را ببینه و بهشون پیام بده
-[ ] قابلیت آنفالو کردن
-[ ] اتصال به پوستگرس / درست کردن دیتابیس
-[ ] پیام ها را اگر سین زد فقط نقظه اش بره
-[ ] بروز کردن ریدمی
+# To-Do List
+
+- [ ] Add status feature
+- [ ] Add daily notifications
+- [ ] Check on people — allow me to ask my followings "How are you?"
+- [ ] Allow users to view others' profiles and send them messages
+- [ ] Add unfollow functionality
