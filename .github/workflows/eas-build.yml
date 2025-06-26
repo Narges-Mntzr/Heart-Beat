@@ -47,5 +47,5 @@ jobs:
         run: |
           echo "Platform: ${{ github.event.inputs.platform }}"
           echo "Profile: ${{ github.event.inputs.profile }}"
-          cd client/myproject
+          cd client/heartbeat
           eas build --platform ${{ github.event.inputs.platform }} --profile ${{ github.event.inputs.profile }} --non-interactive
