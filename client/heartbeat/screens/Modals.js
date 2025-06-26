@@ -12,6 +12,11 @@ import { Ionicons } from "@expo/vector-icons";
 import styles from "../styles/HomeScreenStyles";
 
 export default function Modals({ logic }) {
+  function isPersian(text) {
+    const persianRegex = /[\u0600-\u06FF]/;
+    return persianRegex.test(text);
+  }
+
   return (
     <>
       {/* لیست دنبال‌شده‌ها */}
@@ -149,7 +154,7 @@ export default function Modals({ logic }) {
               یافتن و دنبال‌کردن ضربان جدید
             </Text>
             <TextInput
-              style={styles.input}
+              style={[styles.input,{textAlign: isPersian(logic.followTarget) || (logic.followTarget.length==0)? 'right' : 'left'}]}
               placeholder="نام کاربری را وارد کنید."
               value={logic.followTarget}
               onChangeText={logic.fetchSuggestions}

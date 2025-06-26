@@ -105,7 +105,7 @@ def list_following(request, user_id):
         )
 
         messages = Message.objects.filter(
-            sender=target, receiver=user, date__gte=today_start, date__lt=today_end
+            sender=target, receiver=user, sent_at__gte=today_start, sent_at__lt=today_end
         ).order_by("sent_at")
 
         message = messages.first() if messages.exists() else None

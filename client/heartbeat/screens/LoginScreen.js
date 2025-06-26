@@ -16,7 +16,6 @@ export default function LoginScreen({ navigation, setUserId }) {
   const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
   const [error, setError] = useState("");
-  const fadeAnim = useRef(new Animated.Value(1)).current;
 
   const handleLogin = async () => {
     try {
