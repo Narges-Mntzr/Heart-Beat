@@ -41,7 +41,7 @@ jobs:
       - name: Authenticate with EAS
         run: echo "Authenticated with EXPO_TOKEN"
         env:
-          EXPO_TOKEN: ${{ secrets.EAS_TOKEN }}
+          EXPO_TOKEN: ${{ secrets.EXPO_TOKEN }}
 
       - name: Run EAS Build
         run: |
