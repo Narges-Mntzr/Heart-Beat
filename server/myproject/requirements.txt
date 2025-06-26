@@ -4,3 +4,4 @@ Django==5.2.3
 djangorestframework==3.16.0
 jdatetime==5.2.0
 sqlparse==0.5.3
+whitenoise==6.9.0
