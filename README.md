@@ -43,5 +43,5 @@ npx expo start
 
 
 ## Contributors
-- **Zeinab Montazeri:**  Email: 	zeinab.montazeri@gmail.com , Github: [zeinabmontazeri](https://github.com/zeinabmontazeri).<br />
 - **Narges Montazeri:** Email: Narges.montazeri81@gmail.com , Github: [Narges-Mntzr](https://github.com/Narges-Mntzr).<br />
+- **Zeinab Montazeri:**  Email: zeinab.montazeri@gmail.com , Github: [zeinabmontazeri](https://github.com/zeinabmontazeri).<br />
