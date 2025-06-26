@@ -43,13 +43,18 @@ export default function LoginScreen({ navigation, setUserId }) {
       setError(err.response?.data?.error || "ثبت‌نام با مشکل مواجه شد.");
     }
   };
+  
+  function isPersian(text) {
+    const persianRegex = /[\u0600-\u06FF]/;
+    return persianRegex.test(text);
+  }
 
   return (
     <View style={styles.container}>
       <Text style={styles.title}>ضربان</Text>
 
       <TextInput
-        style={styles.input}
+        style={[styles.input,{textAlign: isPersian(username) || (username.length==0)? 'right' : 'left'}]}
         placeholder="نام کاربری"
         value={username}
         autoCapitalize="none"
@@ -57,7 +62,7 @@ export default function LoginScreen({ navigation, setUserId }) {
       />
 
       <TextInput
-        style={styles.input}
+        style={[styles.input,{textAlign: isPersian(password) || (password.length==0)? 'right' : 'left'}]}
         placeholder="رمز عبور"
         value={password}
         secureTextEntry

@@ -21,12 +21,15 @@ const styles = StyleSheet.create({
     padding: 10,
     width: "80%",
     fontFamily:"Shabnam",
+    textAlign: "right",
   },
   error: {
     color: "red",
     fontSize: 14,
     marginBottom: 8,
     fontFamily: "Shabnam",
+    textAlign: "right",
+    width: "80%",
   },
   buttonRow: {
     flexDirection: "row",
